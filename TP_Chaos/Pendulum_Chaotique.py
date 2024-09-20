@@ -128,8 +128,8 @@ thetadot2 = C5_C2_S2_thetadot
 #position
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(t1,theta1, label="Simulation 1", color="blue")
-ax.plot(t2,theta2, label="Simulation 2", color="red")
+ax.plot(t1,theta1, label="Exp. 1", color="blue")
+ax.plot(t2,theta2, label="Exp. 2", color="red")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_angle.pdf")
@@ -138,8 +138,8 @@ fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_angle.pdf")
 #angular speed
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(t1,thetadot1, label="Simulation 1", color="blue")
-ax.plot(t2,thetadot2, label="Simulation 2", color="red")
+ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
+ax.plot(t2,thetadot2, label="Exp. 2", color="red")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_speed.pdf")
@@ -149,8 +149,8 @@ fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_speed.pdf")
 #phase space
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Position (rad)", ylabel="Vitesse angulaire (rad/s)")
 
-ax.plot(theta1,thetadot1,color="blue",label="Simulation 1")
-ax.plot(theta2,thetadot2,color="red",label="Simulation 2")
+ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
+ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_phase_space.pdf")
@@ -167,36 +167,26 @@ fs = 1/(t1[1]-t1[0])
 n1 = len(theta1)
 n2 = len(theta2)
 
-#FFT on C5_C2_S1
-theta_demeaned = theta - np.mean(theta)
-fft_values = np.fft.fft(theta_demeaned)
-frequencies = np.fft.fftfreq(n, d=1/fs)
+#FFT 
+theta_demeaned1 = theta1 - np.mean(theta1)
+fft_values1 = np.fft.fft(theta_demeaned1)
+frequencies1 = np.fft.fftfreq(n1, d=1/fs)
+positive_freqs1 = frequencies1[:n1//2]
+positive_fft1 = np.abs(fft_values1[:n1//2])
 
-positive_freqs = frequencies[:n//2]
-positive_fft = np.abs(fft_values[:n//2])
+theta_demeaned2 = theta2 - np.mean(theta2)
+fft_values2 = np.fft.fft(theta_demeaned2)
+frequencies2 = np.fft.fftfreq(n2, d=1/fs)
+positive_freqs2 = frequencies2[:n2//2]
+positive_fft2 = np.abs(fft_values2[:n2//2])
 
-ax.plot(positive_freqs, positive_fft, color="blue")
+ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
+ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
 
-
-#FFT on C5_C2_S2
-t = C5_C2_S2_t
-theta = C5_C2_S2_theta
-thetadot = C5_C2_S2_thetadot
-n = len(theta)
-
-theta_demeaned = theta - np.mean(theta)
-fft_values = np.fft.fft(theta_demeaned)
-frequencies = np.fft.fftfreq(n, d=1/fs)
-
-positive_freqs = frequencies[:n//2]
-positive_fft = np.abs(fft_values[:n//2])
-
-ax.plot(positive_freqs, positive_fft, color="red")
 
 freq_range=[0,1]
 ax.set_xlim(freq_range)
-# u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_spectral_analysis.pdf")
+u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_spectral_analysis.pdf")
 
 
