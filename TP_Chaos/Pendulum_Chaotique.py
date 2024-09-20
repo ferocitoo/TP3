@@ -110,13 +110,6 @@ C7_GaucheDroite_thetadot=C7_GaucheDroite.iloc[:,2]
 #----------Configuration x, Condition x, Simulation x----------#
 
 #--Plot--#
-xlabel = "Temps (s)"
-ylabel = "Position (rad)"
-
-# t=C7_Droite_t
-# theta = C7_Droite_theta
-# thetadot = C7_Droite_thetadot
-
 t1 = C5_C2_S1_t
 theta1 = C5_C2_S1_theta
 thetadot1 = C5_C2_S1_thetadot
@@ -125,21 +118,32 @@ t2 = C5_C2_S2_t
 theta2 = C5_C2_S2_theta
 thetadot2 = C5_C2_S2_thetadot
 
+
 #position
+xlabel = "Time [s]"
+ylabel = r"\theta" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 ax.plot(t1,theta1, label="Exp. 1", color="blue")
 ax.plot(t2,theta2, label="Exp. 2", color="red")
+
+timerange = [-2,30]
+ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_angle.pdf")
 
 
 #angular speed
+xlabel = "Time [s]"
+ylabel = r"\dot{\theta}" + " [rad]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
 ax.plot(t2,thetadot2, label="Exp. 2", color="red")
+
+timerange = [-2,30]
+ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_speed.pdf")
@@ -147,7 +151,9 @@ fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_speed.pdf")
 
 
 #phase space
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Position (rad)", ylabel="Vitesse angulaire (rad/s)")
+xlabel = r"\dot{\theta}" + " [rad]"
+ylabel = r"\theta" + " [V]"
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
 ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
@@ -160,7 +166,9 @@ fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_phase_space.pdf")
 
 
 #spectral analysis
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Fréquence (Hz)", ylabel="Amplitude")
+xlabel = "Frequency [Hz]"
+ylabel = "Amplitude"
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 fs = 1/(t1[1]-t1[0])
 
@@ -189,6 +197,93 @@ ax.set_xlim(freq_range)
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/ConfigX_CondX_SimulX_spectral_analysis.pdf")
 
+
+#----------Configuration 6, Condition 1, Simulation 1 and 2----------#
+
+#--Plot--#
+t1 = C6_C1_S1_t
+theta1 = C6_C1_S1_theta
+thetadot1 = C6_C1_S1_thetadot
+
+t2 = C6_C1_S2_t
+theta2 = C6_C1_S2_theta
+thetadot2 = C6_C1_S2_thetadot
+
+
+#position
+xlabel = "Time [s]"
+ylabel = r"\theta" + " [V]"
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+ax.plot(t1,theta1, label="Exp. 1", color="blue")
+ax.plot(t2,theta2, label="Exp. 2", color="red")
+
+timerange = [-2,30]
+ax.set_xlim(timerange)
+
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_angle.pdf")
+
+
+#angular speed
+xlabel = "Time [s]"
+ylabel = r"\dot{\theta}" + " [rad]"
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
+ax.plot(t2,thetadot2, label="Exp. 2", color="red")
+
+timerange = [-2,30]
+ax.set_xlim(timerange)
+
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_speed.pdf")
+
+
+#phase space
+xlabel = r"\dot{\theta}" + " [rad]"
+ylabel = r"\theta" + " [V]"
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
+ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
+
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_phase_space.pdf")
+
+
+#spectral analysis
+xlabel = "Frequency [Hz]"
+ylabel = "Amplitude"
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+fs = 1/(t1[1]-t1[0])
+
+n1 = len(theta1)
+n2 = len(theta2)
+
+#FFT
+theta_demeaned1 = theta1 - np.mean(theta1)
+fft_values1 = np.fft.fft(theta_demeaned1)
+frequencies1 = np.fft.fftfreq(n1, d=1/fs)
+
+positive_freqs1 = frequencies1[:n1//2]
+positive_fft1 = np.abs(fft_values1[:n1//2])
+
+theta_demeaned2 = theta2 - np.mean(theta2)
+fft_values2 = np.fft.fft(theta_demeaned2)
+frequencies2 = np.fft.fftfreq(n2, d=1/fs)
+
+positive_freqs2 = frequencies2[:n2//2]
+positive_fft2 = np.abs(fft_values2[:n2//2])
+
+ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
+ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+
+freq_range=[0,1]
+ax.set_xlim(freq_range)
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_spectral_analysis.pdf")
 
 
 
