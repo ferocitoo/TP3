@@ -22,97 +22,286 @@ import pandas as pd
 
 #Import the data
 #----config1-----#
-C1 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_1.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C1 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_1.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",",encoding='iso-8859-1')  # Adjust delimiter if necessary
 C1_t=C1.iloc[:,0]
 C1_theta=C1.iloc[:,1]
 C1_thetadot=C1.iloc[:,2]
 
 #----config2-----#
 #3 périodes mieux
-C2_1 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_2_1.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C2_1 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_2_1.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",", encoding='iso-8859-1')  # Adjust delimiter if necessary
 C2_1_t=C2_1.iloc[:,0]
 C2_1_theta=C2_1.iloc[:,1]
 C2_1_thetadot=C2_1.iloc[:,2]
 
 #3 pértiodes inversé
-C2_2 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_2_2.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C2_2 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_2_2.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",", encoding='iso-8859-1')  # Adjust delimiter if necessary
 C2_2_t=C2_2.iloc[:,0]
 C2_2_theta=C2_2.iloc[:,1]
 C2_2_thetadot=C2_2.iloc[:,2]
 
 #1 période
-C2_3 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_2_3.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C2_3 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_2_4.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",", encoding='iso-8859-1')  # Adjust delimiter if necessary
 C2_3_t=C2_3.iloc[:,0]
 C2_3_theta=C2_3.iloc[:,1]
 C2_3_thetadot=C2_3.iloc[:,2]
 
 #----config3-----#
-C3_1 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_3_1.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C3_1 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_3_1.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",", encoding='iso-8859-1')  # Adjust delimiter if necessary
 C3_1_t=C3_1.iloc[:,0]
 C3_1_theta=C3_1.iloc[:,1]
 C3_1_thetadot=C3_1.iloc[:,2]
 
-C3_2 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_3_2.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C3_2 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_3_2.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",", encoding='iso-8859-1')  # Adjust delimiter if necessary
 C3_2_t=C3_2.iloc[:,0]
 C3_2_theta=C3_2.iloc[:,1]
 C3_2_thetadot=C3_2.iloc[:,2]
 
-C3_3 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_3_3.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C3_3 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_3_3.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",", encoding='iso-8859-1')  # Adjust delimiter if necessary
 C3_3_t=C3_3.iloc[:,0]
 C3_3_theta=C3_3.iloc[:,1]
 C3_3_thetadot=C3_3.iloc[:,2]
 
 #----config4-----#
 #1 période
-C4 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_4.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",")  # Adjust delimiter if necessary
+C4 = pd.read_csv("TP_Chaos/Datas_Moteur/Config_4.txt", skiprows=6, usecols=[0, 1, 2], delimiter='\t', decimal = ",", encoding='iso-8859-1')  # Adjust delimiter if necessary
 C4_t=C4.iloc[:,0]
 C4_theta=C4.iloc[:,1]
 C4_thetadot=C4.iloc[:,2]
 
+#bifurc_3
+Bif_3 = pd.read_csv("TP_Chaos/Datas_Moteur/bifurc_3.csv", delimiter=';', decimal = ",")  # Adjust delimiter if necessary
 
+Bif_3_t=Bif_3.iloc[:,0]
+Bif_3_theta=Bif_3.iloc[:,1]
+Bif_3_thetadot=Bif_3.iloc[:,2]
 
-#-----------config 1------------#
+#to numpy 
+Bif_3_theta = Bif_3_theta.to_numpy()
+Bif_3_thetadot = Bif_3_thetadot.to_numpy()
 
-#----plot----#
-t = C1_t
-theta = C1_theta
-thetadot = C1_thetadot
+#count time
+time_array = Bif_3_t.to_numpy()
+full_cycles = 0
+for i in range(len(time_array) - 1):
+    if time_array[i] == 32 and time_array[i + 1] == 0:
+        full_cycles += 1
 
-#phase space
-xlabel = r"$\theta$" + " [V]"
-ylabel = r"$\dot{\theta}$" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-# ax.plot(theta,thetadot,color="black",linestyle=':', linewidth=0.5)
-ax.plot(theta,thetadot,color="black")
-
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config1_phase_space.pdf")
-
-#spectral analysis
-xlabel = "Frequency [Hz]"
-ylabel = "Amplitude"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-fs = 1/(t[1]-t[0])
-n = len(theta)
-
-#FFT
-theta_demeaned = theta - np.mean(theta)
-theta_demeaned = np.pad(theta_demeaned, (0, n), 'constant')
-n = len(theta_demeaned)
-fft_values = np.fft.fft(theta_demeaned)
-frequencies = np.fft.fftfreq(n, d=1/fs)
-positive_freqs = frequencies[:n//2]
-positive_fft = np.abs(fft_values[:n//2])
-
-ax.plot(positive_freqs, positive_fft, color="black")
-
-freq_range=[0,1]
-ax.set_xlim(freq_range)
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config1_spectral_analysis.pdf")
+# Calculate the total time from full cycles
+total_time = full_cycles * 32.0
+if time_array[-1] < 32:
+    total_time += time_array[-1]
+    
+Bif_3_t = np.linspace(0,total_time,len(Bif_3_theta))
 
 
 
+#bifurc_4 
+Bif_4 = pd.read_csv("TP_Chaos/Datas_Moteur/bifurc_4.csv", delimiter=';', decimal = ",")  # Adjust delimiter if necessary
 
+Bif_4_t=Bif_4.iloc[:,0]
+Bif_4_theta=Bif_4.iloc[:,1]
+Bif_4_thetadot=Bif_4.iloc[:,2]
+
+#to numpy
+Bif_4_theta = Bif_4_theta.to_numpy()
+Bif_4_thetadot = Bif_4_thetadot.to_numpy()
+
+#count time
+time_array = Bif_4_t.to_numpy()
+full_cycles = 0
+for i in range(len(time_array) - 1):
+    if time_array[i] == 32 and time_array[i + 1] == 0:
+        full_cycles += 1
+
+# Calculate the total time from full cycles
+total_time = full_cycles * 32.0
+if time_array[-1] < 32:
+    total_time += time_array[-1]
+    
+Bif_4_t = np.linspace(0,total_time,len(Bif_4_theta))
+
+
+#bifurc_2
+Bif_2 = pd.read_csv("TP_Chaos/Datas_Moteur/bifurc_2.csv", delimiter=';', decimal = ",")  # Adjust delimiter if necessary
+
+Bif_2_t=Bif_2.iloc[:,0]
+Bif_2_theta=Bif_2.iloc[:,1]
+Bif_2_thetadot=Bif_2.iloc[:,2]
+
+#to numpy
+Bif_2_theta = Bif_2_theta.to_numpy()
+Bif_2_thetadot = Bif_2_thetadot.to_numpy()
+
+#count time
+time_array = Bif_2_t.to_numpy()
+full_cycles = 0
+for i in range(len(time_array) - 1):
+    if time_array[i] == 32 and time_array[i + 1] == 0:
+        full_cycles += 1
+
+# Calculate the total time from full cycles
+total_time = full_cycles * 32.0
+if time_array[-1] < 32:
+    total_time += time_array[-1]
+    
+Bif_2_t = np.linspace(0,total_time,len(Bif_2_theta))
+
+
+
+#bifurc_1
+Bif_1 = pd.read_csv("TP_Chaos/Datas_Moteur/bifurc_1.csv", delimiter=';', decimal = ",")  # Adjust delimiter if necessary
+
+Bif_1_t=Bif_1.iloc[:,0]
+Bif_1_theta=Bif_1.iloc[:,1]
+Bif_1_thetadot=Bif_1.iloc[:,2]
+
+#to numpy
+Bif_1_theta = Bif_1_theta.to_numpy()
+Bif_1_thetadot = Bif_1_thetadot.to_numpy()
+
+#count time
+time_array = Bif_1_t.to_numpy()
+full_cycles = 0
+for i in range(len(time_array) - 1):
+    if time_array[i] == 32 and time_array[i + 1] == 0:
+        full_cycles += 1
+
+# Calculate the total time from full cycles
+total_time = full_cycles * 32.0
+if time_array[-1] < 32:
+    total_time += time_array[-1]
+    
+Bif_1_t = np.linspace(0,total_time,len(Bif_1_theta))
+
+
+
+Bif_1_freq_start = 5
+Bif_1_freq_end = 0.5
+
+Bif_2_freq_start = 3
+Bif_2_freq_end = 0
+
+Bif_3_freq_start = 5
+Bif_3_freq_end = 0
+
+Bif_4_freq_start = 4
+Bif_4_freq_end = 1.5
+
+phase_value = -0.05
+
+
+def poincare_section(t, theta, thetadot, freq_start, freq_end, draw_interval = 0.5, section_interval=5, phase_value=0):
+    """
+    Returns the Poincaré section of the phase space and the corresponding frequencies.
+    
+    Parameters:
+    t (array): df of time points.
+    theta (array): df of angular positions.
+    thetadot (array): df of angular velocities.
+    freq_start (float): Starting frequency of the sweep.
+    freq_end (float): End frequency of the sweep.
+    section_interval (float): Time interval to take Poincaré sections (e.g., every 10 seconds).
+    phase_value (float): The value of theta to use for the vertical line for the Poincaré section.
+
+    Returns:
+    freqs (array): Frequencies at which the Poincaré section is taken.
+    poincare_points (list): List of points in the Poincaré section as (theta, thetadot) tuples.
+    """
+    # Determine total time and frequency sweep rate
+    total_time = t[-1] - t[0]
+    freq_sweep_rate = (freq_end - freq_start) / total_time
+    
+    # Calculate the time points for the Poincaré sections
+    poincare_times = np.arange(t[0], t[-1], draw_interval)
+    
+    
+    #remove the last point
+    poincare_times = poincare_times[:-1]
+    
+    # Initialize lists for storing the results
+    freqs = []
+    poincare_points = []
+    
+    for t_poincare in poincare_times:
+        # Find the frequency corresponding to the current Poincaré section time
+        current_freq = freq_start + freq_sweep_rate * (t_poincare - t[0])
+        
+        
+        # range of theta values betweeen t_poincare and t_poincare + section_interval
+        theta_range = theta[(t >= t_poincare) & (t < t_poincare + section_interval)]
+        thetadot_range = thetadot[(t >= t_poincare) & (t < t_poincare + section_interval)]
+
+        
+        # Find the points in phase space that cross the vertical line (theta = phase_value)
+        for i in range(1, len(theta_range)):
+            
+            if ((theta_range[i-1] < phase_value and theta_range[i] >= phase_value) or (theta_range[i-1] >= phase_value and theta_range[i] < phase_value)) and thetadot_range[i-1] > 0 and thetadot_range[i] > 0:
+                # Linear interpolation to find the exact crossing point
+                theta_diff = theta_range[i] - theta_range[i-1]
+                time_diff = t[i] - t[i-1]
+                interp_fraction = (phase_value - theta_range[i-1]) / theta_diff
+                
+                t_interp = t[i-1] + interp_fraction * time_diff
+                thetadot_interp = thetadot_range[i-1] + interp_fraction * (thetadot_range[i] - thetadot_range[i-1])
+                
+                freqs.append(current_freq)
+                poincare_points.append(thetadot_interp)
+                # break  # Only take the first crossing point for each Poincaré section
+
+    return np.array(freqs), np.array(poincare_points)
+
+#plot diffurcation diagram
+def plot_bifurcation_diagram(freqs, poincare_points, xlabel, ylabel, filename, figsize=(12, 6)):
+    """
+    Plots a bifurcation diagram.
+    
+    Parameters:
+    freqs (array): Array of frequencies.
+    poincare_points (array): Array of Poincaré section points.
+    title (str): Title of the plot.
+    xlabel (str): Label for the x-axis.
+    ylabel (str): Label for the y-axis.
+    """
+
+    #phase space
+    xlabel = r"Frequency [Hz]" + " [V]"
+    ylabel = r"$\dot{\theta}$" + " [V]"
+    ax,fig = u.create_figure_and_apply_format(figsize,xlabel=xlabel, ylabel=ylabel)
+
+    ax.scatter(freqs,poincare_points,color="black", marker="x", s=0.5)
+
+    u.set_legend_properties(ax,fontsize=18)
+    fig.savefig(filename)
+
+
+
+section_interval = 5
+draw_interval = 2.5
+
+#----Bifurcation 3-----#
+filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_3.png"
+
+freqs, poincare_points = poincare_section(Bif_3_t, Bif_3_theta, Bif_3_thetadot, Bif_3_freq_start, Bif_3_freq_end, draw_interval,section_interval, phase_value)
+plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+
+#----Bifurcation 4-----#
+filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_4.png"
+
+freqs, poincare_points = poincare_section(Bif_4_t, Bif_4_theta, Bif_4_thetadot, Bif_4_freq_start, Bif_4_freq_end, draw_interval,section_interval, phase_value)
+plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+
+#----Bifurcation 2-----#
+filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_2.png"
+
+freqs, poincare_points = poincare_section(Bif_2_t, Bif_2_theta, Bif_2_thetadot, Bif_2_freq_start, Bif_2_freq_end, draw_interval,section_interval, phase_value)
+plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+
+#----Bifurcation 1-----#
+filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_1.png"
+
+freqs, poincare_points = poincare_section(Bif_1_t, Bif_1_theta, Bif_1_thetadot, Bif_1_freq_start, Bif_1_freq_end, draw_interval,section_interval, phase_value)
+plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
