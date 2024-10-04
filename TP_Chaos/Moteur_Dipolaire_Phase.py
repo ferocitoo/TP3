@@ -22,7 +22,7 @@ import pandas as pd
 
 #Import the data
 #----config1-----#
-C1 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas_Moteur/Config_1.txt",usecols=[0,1,2],skiprows=6, delimiter='\t', decimal=',', encoding='ISO-8859-1')
+C1 = pd.read_csv("/workspaces/TP_Chaos/Datas_Moteur/Config_1.txt",usecols=[0,1,2],skiprows=6, delimiter='\t', decimal=',', encoding='ISO-8859-1')
 
 C1_t = C1.iloc[:,0]
 C1_theta = C1.iloc[:,1]
