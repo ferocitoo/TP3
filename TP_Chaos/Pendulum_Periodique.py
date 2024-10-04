@@ -5,7 +5,7 @@ import sys
 import os
 
 module_name = "utils_v2"
-file_path = "/workspaces/TP3/utils_v2.py"
+file_path = "/workspaces/TP-Chaos/utils_v2.py"
 
 spec = importlib.util.spec_from_file_location(module_name, file_path)
 module = importlib.util.module_from_spec(spec)
@@ -21,37 +21,37 @@ import pandas as pd
 
 
 #Import the data
-C7_Droite = pd.read_csv("/workspaces/TP3/TP_Chaos/Datas/Config7_Droite.csv", delimiter=';', decimal=',')
+C7_Droite = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config7_Droite.csv", delimiter=';', decimal=',')
 C7_Droite_t=C7_Droite.iloc[:,0]
 C7_Droite_theta=C7_Droite.iloc[:,1]
 C7_Droite_thetadot=C7_Droite.iloc[:,2]
 
-C7_Gauche = pd.read_csv("/workspaces/TP3/TP_Chaos/Datas/Config7_Gauche.csv", delimiter=';', decimal=',')
+C7_Gauche = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config7_Gauche.csv", delimiter=';', decimal=',')
 C7_Gauche_t=C7_Gauche.iloc[:,0]
 C7_Gauche_theta=C7_Gauche.iloc[:,1]
 C7_Gauche_thetadot=C7_Gauche.iloc[:,2]
 
-C7_GaucheDroite = pd.read_csv("/workspaces/TP3/TP_Chaos/Datas/Config7_GaucheDroite.csv", delimiter=';', decimal=',')
+C7_GaucheDroite = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config7_GaucheDroite.csv", delimiter=';', decimal=',')
 C7_GaucheDroite_t=C7_GaucheDroite.iloc[:,0]
 C7_GaucheDroite_theta=C7_GaucheDroite.iloc[:,1]
 C7_GaucheDroite_thetadot=C7_GaucheDroite.iloc[:,2]
 
-C8_C1_S1 = pd.read_csv("/workspaces/TP3/TP_Chaos/Datas/Config8_Cond1_Simul1.csv", delimiter=';', decimal=',')
+C8_C1_S1 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond1_Simul1.csv", delimiter=';', decimal=',')
 C8_C1_S1_t=C8_C1_S1.iloc[:,0]
 C8_C1_S1_theta=C8_C1_S1.iloc[:,1]
 C8_C1_S1_thetadot=C8_C1_S1.iloc[:,2]
 
-C8_C1_S2 = pd.read_csv("/workspaces/TP3/TP_Chaos/Datas/Config8_Cond1_Simul2.csv", delimiter=';', decimal=',')
+C8_C1_S2 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond1_Simul2.csv", delimiter=';', decimal=',')
 C8_C1_S2_t=C8_C1_S2.iloc[:,0]
 C8_C1_S2_theta=C8_C1_S2.iloc[:,1]
 C8_C1_S2_thetadot=C8_C1_S2.iloc[:,2]
 
-C8_C2_S1 = pd.read_csv("/workspaces/TP3/TP_Chaos/Datas/Config8_Cond2_Simul1.csv", delimiter=';', decimal=',')
+C8_C2_S1 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond2_Simul1.csv", delimiter=';', decimal=',')
 C8_C2_S1_t=C8_C2_S1.iloc[:,0]
 C8_C2_S1_theta=C8_C2_S1.iloc[:,1]
 C8_C2_S1_thetadot=C8_C2_S1.iloc[:,2]
 
-C8_C3_S1 = pd.read_csv("/workspaces/TP3/TP_Chaos/Datas/Config8_Cond3_Simul1.csv", delimiter=';', decimal=',')
+C8_C3_S1 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond3_Simul1.csv", delimiter=';', decimal=',')
 C8_C3_S1_t=C8_C3_S1.iloc[:,0]
 C8_C3_S1_theta=C8_C3_S1.iloc[:,1]
 C8_C3_S1_thetadot=C8_C3_S1.iloc[:,2]
@@ -70,7 +70,7 @@ timerange = [-2,20]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config7_position.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config7_position.pdf")
 
 
 #angular speed
@@ -86,7 +86,7 @@ timerange = [-2,20]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config7_angul_speed.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config7_angul_speed.pdf")
 
 
 #phase space
@@ -99,7 +99,7 @@ ax.plot(C7_Gauche_thetadot,C7_Gauche_theta, label="Pendule à gauche", color="re
 ax.plot(C7_GaucheDroite_thetadot,C7_GaucheDroite_theta, label="Pendule entier", color="green")
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config7_phase_space.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config7_phase_space.pdf")
 
 
 #spectral analysis
@@ -142,7 +142,7 @@ ax.plot(positive_freqs3, positive_fft3, color="green",label="Pendule entier")
 freq_range=[0,1]
 ax.set_xlim(freq_range)
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config7_spectral_analysis.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config7_spectral_analysis.pdf")
 
 #Config8Cond1
 #position
@@ -157,7 +157,7 @@ timerange = [-2,40]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond1_position.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond1_position.pdf")
 
 
 #angular speed
@@ -172,7 +172,7 @@ timerange = [-2,40]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond1_angul_speed.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond1_angul_speed.pdf")
 
 
 #phase space
@@ -184,7 +184,7 @@ ax.plot(C8_C1_S1_thetadot,C8_C1_S1_theta, label="Condition initiale 1", color="b
 ax.plot(C8_C1_S2_thetadot,C8_C1_S2_theta, label="Condition initiale 2", color="red")
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond1_phase_space.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond1_phase_space.pdf")
 
 
 #spectral analysis
@@ -219,7 +219,7 @@ ax.plot(positive_freqs2, positive_fft2, color="red",label="Condition initiale 2"
 freq_range=[0,1]
 ax.set_xlim(freq_range)
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond1_spectral_analysis.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond1_spectral_analysis.pdf")
 
 #Config8Cond2and3
 #position 
@@ -236,7 +236,7 @@ timerange = [-2,120]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond2and3_position.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond2and3_position.pdf")
 
 
 #angular speed
@@ -252,7 +252,7 @@ timerange = [-2,120]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond2and3_angul_speed.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond2and3_angul_speed.pdf")
 
 
 #phase space
@@ -265,7 +265,7 @@ ax.plot(C8_C2_S1_thetadot,C8_C2_S1_theta, label="Condition initiale 2", color="r
 ax.plot(C8_C3_S1_thetadot,C8_C3_S1_theta, label="Condition initiale 3", color="green")
 
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond2and3_phase_space.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond2and3_phase_space.pdf")
 
 
 #spectral analysis
@@ -306,8 +306,16 @@ ax.plot(positive_freqs1, positive_fft1, color="blue",label="Condition initiale 1
 ax.plot(positive_freqs2, positive_fft2, color="red",label="Condition initiale 2")
 ax.plot(positive_freqs3, positive_fft3, color="green",label="Condition initiale 3")
 
+#Get the excitation frequency of the system from the spectral analysis of third cond
+max_freq = positive_freqs3[np.argmax(positive_fft3)]
+
 freq_range=[0,1]
 ax.set_xlim(freq_range)
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond2and3_spectral_analysis.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond2and3_spectral_analysis.pdf")
+
+
+
+ 
+print(max_freq)
 

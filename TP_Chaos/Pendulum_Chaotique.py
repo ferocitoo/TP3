@@ -629,3 +629,77 @@ ax.plot(CJOLI_thetadot,CJOLI_theta,color="black",linestyle=':', linewidth=0.5)
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/Config5_JOLI_phase_space.pdf")
+
+
+#spectral analysis
+xlabel = "Frequency [Hz]"
+ylabel = "Amplitude"
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+fs = 1/(CJOLI_t[1]-CJOLI_t[0])
+
+n = len(CJOLI_theta)
+
+#FFT
+theta_demeaned = CJOLI_theta - np.mean(CJOLI_theta)
+theta_demeaned = np.pad(theta_demeaned, (0, n), 'constant')
+n = len(theta_demeaned)
+fft_values = np.fft.fft(theta_demeaned)
+frequencies = np.fft.fftfreq(n, d=1/fs)
+positive_freqs = frequencies[:n//2]
+positive_fft = np.abs(fft_values[:n//2])
+
+ax.plot(positive_freqs, positive_fft, color="black")
+
+freq_range=[0,1]
+ax.set_xlim(freq_range)
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig("TP_Chaos/Figures/Config5_JOLI_spectral_analysis.pdf")
+
+
+# max_freq = positive_freqs[np.argmax(positive_fft)]
+
+# excitation_freq = max_freq
+
+
+# #make poincaré section at each t = 2*pi/excitation_freq
+# t = CJOLI_t
+# theta = CJOLI_theta.to_numpy()
+# thetadot = CJOLI_thetadot.to_numpy()
+
+# dt = (t[1]-t[0])
+
+# T = 1/excitation_freq
+
+
+
+# poincare_theta = []
+# poincare_thetadot = []
+
+# n = 1
+
+# # Sample data at multiples of T and T/2
+# for i in range(len(t)):
+#     for k in range(n):  # Loop over 8 points in each period
+#         if t[i] % T < dt or (t[i] + k*T/n) % T < dt:
+#             poincare_theta.append(theta[i])
+#             poincare_thetadot.append(thetadot[i])
+        
+        
+# #count true indices
+# # print("Number of points in the Poincaré section: ",np.sum(indices))
+
+# #print total time
+# print("Total time: ",t.to_numpy()[-1])
+
+# #position
+# xlabel = r"$\theta$" + " [V]"
+# ylabel = r"$\dot{\theta}$" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+
+# ax.scatter(poincare_thetadot,poincare_theta,color="black",s=1.5,marker='x')
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_JOLI_poincare_section.pdf")
+
