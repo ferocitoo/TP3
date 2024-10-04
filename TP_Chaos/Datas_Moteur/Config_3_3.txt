@@ -2,7 +2,7 @@ MIN=0	-1	-1	0	0	0
 MAX=32	1	1	1	1	250	
 SCALE=10	0,5	0,5	0,5	0,5	100	
 DEC=3	3	3	0	0	2	
-DEF="Temps" t / s	"Tension" U_A2 / V	"Tension" U_B2 / V	"Relais" R_2	"Source de tension" S_2	"Fréquence" f / Hz	
+DEF="Temps" t / s	"Tension" U_A2 / V	"Tension" U_B2 / V	"Relais" R_2	"Source de tension" S_2	"Frï¿½quence" f / Hz	
 0	0,3695	-0,021	0	1	NAN	
 0,002	0,37	-0,0255	0	1	NAN	
 0,004	0,369	-0,03	0	1	NAN	
@@ -15202,7 +15202,3 @@ DEF="Temps" t / s	"Tension" U_A2 / V	"Tension" U_B2 / V	"Relais" R_2	"Source de 
 30,392	0,3345	-0,0005	0	1	NAN	
 30,394	0,3355	-0,0005	0	1	NAN	
 30,396	0,3375	-0,0015	0	1	NAN	
-30,398	NAN	-0,0015	0	1	NAN	
-30,4	NAN	-0,001	0	1	NAN	
-30,402	NAN	-0,0025	0	1	NAN	
-30,404	NAN	-0,002	0	1	NAN	
