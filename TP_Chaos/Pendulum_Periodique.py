@@ -62,9 +62,9 @@ xlabel = "Time [s]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C7_Droite_t,C7_Droite_theta, label="Droite", color="blue")
-ax.plot(C7_Gauche_t,C7_Gauche_theta, label="Gauche", color="red")
-ax.plot(C7_GaucheDroite_t,C7_GaucheDroite_theta, label="GaucheDroite", color="green")
+ax.plot(C7_Droite_t,C7_Droite_theta, label="Pendule à droite", color="blue")
+ax.plot(C7_Gauche_t,C7_Gauche_theta, label="Pendule à gauche", color="red")
+ax.plot(C7_GaucheDroite_t,C7_GaucheDroite_theta, label="Pendule entier", color="green")
 
 timerange = [-2,20]
 ax.set_xlim(timerange)
@@ -78,9 +78,9 @@ xlabel = "Time [s]"
 ylabel = r"$\dot{\theta}$" + " [rad]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C7_Droite_t,C7_Droite_thetadot, label="Droite", color="blue")
-ax.plot(C7_Gauche_t,C7_Gauche_thetadot, label="Gauche", color="red")
-ax.plot(C7_GaucheDroite_t,C7_GaucheDroite_thetadot, label="GaucheDroite", color="green")
+ax.plot(C7_Droite_t,C7_Droite_thetadot, label="Pendule à droite", color="blue")
+ax.plot(C7_Gauche_t,C7_Gauche_thetadot, label="Pendule à gauche", color="red")
+ax.plot(C7_GaucheDroite_t,C7_GaucheDroite_thetadot, label="Pendule entier", color="green")
 
 timerange = [-2,20]
 ax.set_xlim(timerange)
@@ -94,9 +94,9 @@ xlabel = r"$\dot{\theta}$" + " [rad]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C7_Droite_thetadot,C7_Droite_theta, label="Droite", color="blue")
-ax.plot(C7_Gauche_thetadot,C7_Gauche_theta, label="Gauche", color="red")
-ax.plot(C7_GaucheDroite_thetadot,C7_GaucheDroite_theta, label="GaucheDroite", color="green")
+ax.plot(C7_Droite_thetadot,C7_Droite_theta, label="Pendule à droite", color="blue")
+ax.plot(C7_Gauche_thetadot,C7_Gauche_theta, label="Pendule à gauche", color="red")
+ax.plot(C7_GaucheDroite_thetadot,C7_GaucheDroite_theta, label="Pendule entier", color="green")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config7_phase_space.pdf")
@@ -135,9 +135,9 @@ frequencies3 = np.fft.fftfreq(n3, d=1/fs)
 positive_freqs3 = frequencies3[:n3//2]
 positive_fft3 = np.abs(fft_values3[:n3//2])
 
-ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
-ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
-ax.plot(positive_freqs3, positive_fft3, color="green",label="Exp. 3")
+ax.plot(positive_freqs1, positive_fft1, color="blue",label="Pendule à droite")
+ax.plot(positive_freqs2, positive_fft2, color="red",label="Pendule à gauche")
+ax.plot(positive_freqs3, positive_fft3, color="green",label="Pendule entier")
 
 freq_range=[0,1]
 ax.set_xlim(freq_range)
@@ -150,8 +150,8 @@ xlabel = "Time [s]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C8_C1_S1_t,C8_C1_S1_theta, label="Cond1_Simul1", color="blue")
-ax.plot(C8_C1_S2_t,C8_C1_S2_theta, label="Cond1_Simul2", color="red")
+ax.plot(C8_C1_S1_t,C8_C1_S1_theta, label="Condition initiale 1", color="blue")
+ax.plot(C8_C1_S2_t,C8_C1_S2_theta, label="Condition initiale 2", color="red")
 
 timerange = [-2,40]
 ax.set_xlim(timerange)
@@ -165,8 +165,8 @@ xlabel = "Time [s]"
 ylabel = r"$\dot{\theta}$" + " [rad]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C8_C1_S1_t,C8_C1_S1_thetadot, label="Cond1_Simul1", color="blue")
-ax.plot(C8_C1_S2_t,C8_C1_S2_thetadot, label="Cond1_Simul2", color="red")
+ax.plot(C8_C1_S1_t,C8_C1_S1_thetadot, label="Condition initiale 1", color="blue")
+ax.plot(C8_C1_S2_t,C8_C1_S2_thetadot, label="Condition initiale 2", color="red")
 
 timerange = [-2,40]
 ax.set_xlim(timerange)
@@ -180,8 +180,8 @@ xlabel = r"$\dot{\theta}$" + " [rad]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C8_C1_S1_thetadot,C8_C1_S1_theta, label="Cond1_Simul1", color="blue")
-ax.plot(C8_C1_S2_thetadot,C8_C1_S2_theta, label="Cond1_Simul2", color="red")
+ax.plot(C8_C1_S1_thetadot,C8_C1_S1_theta, label="Condition initiale 1", color="blue")
+ax.plot(C8_C1_S2_thetadot,C8_C1_S2_theta, label="Condition initiale 2", color="red")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond1_phase_space.pdf")
@@ -213,8 +213,8 @@ frequencies2 = np.fft.fftfreq(n2, d=1/fs)
 positive_freqs2 = frequencies2[:n2//2]
 positive_fft2 = np.abs(fft_values2[:n2//2])
 
-ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
-ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+ax.plot(positive_freqs1, positive_fft1, color="blue",label="Condition initiale 1")
+ax.plot(positive_freqs2, positive_fft2, color="red",label="Condition initiale 2")
 
 freq_range=[0,1]
 ax.set_xlim(freq_range)
@@ -228,9 +228,9 @@ xlabel = "Time [s]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C8_C1_S1_t,C8_C1_S1_theta, label="Cond1_Simul1", color="blue")
-ax.plot(C8_C2_S1_t,C8_C2_S1_theta, label="Cond2_Simul1", color="red")
-ax.plot(C8_C3_S1_t,C8_C3_S1_theta, label="Cond3_Simul1", color="green")
+ax.plot(C8_C1_S1_t,C8_C1_S1_theta, label="Condition initiale 1", color="blue")
+ax.plot(C8_C2_S1_t,C8_C2_S1_theta, label="Condition initiale 2", color="red")
+ax.plot(C8_C3_S1_t,C8_C3_S1_theta, label="Condition initiale 3", color="green")
 
 timerange = [-2,120]
 ax.set_xlim(timerange)
@@ -244,9 +244,9 @@ xlabel = "Time [s]"
 ylabel = r"$\dot{\theta}$" + " [rad]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C8_C1_S1_t,C8_C1_S1_thetadot, label="Cond1_Simul1", color="blue")
-ax.plot(C8_C2_S1_t,C8_C2_S1_thetadot, label="Cond2_Simul1", color="red")
-ax.plot(C8_C3_S1_t,C8_C3_S1_thetadot, label="Cond3_Simul1", color="green")
+ax.plot(C8_C1_S1_t,C8_C1_S1_thetadot, label="Condition initiale 1", color="blue")
+ax.plot(C8_C2_S1_t,C8_C2_S1_thetadot, label="Condition initiale 2", color="red")
+ax.plot(C8_C3_S1_t,C8_C3_S1_thetadot, label="Condition initiale 3", color="green")
 
 timerange = [-2,120]
 ax.set_xlim(timerange)
@@ -260,9 +260,9 @@ xlabel = r"$\dot{\theta}$" + " [rad]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C8_C1_S1_thetadot,C8_C1_S1_theta, label="Cond1_Simul1", color="blue")
-ax.plot(C8_C2_S1_thetadot,C8_C2_S1_theta, label="Cond2_Simul1", color="red")
-ax.plot(C8_C3_S1_thetadot,C8_C3_S1_theta, label="Cond3_Simul1", color="green")
+ax.plot(C8_C1_S1_thetadot,C8_C1_S1_theta, label="Condition initiale 1", color="blue")
+ax.plot(C8_C2_S1_thetadot,C8_C2_S1_theta, label="Condition initiale 2", color="red")
+ax.plot(C8_C3_S1_thetadot,C8_C3_S1_theta, label="Condition initiale 3", color="green")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("/workspaces/TP3/TP_Chaos/Figures/Config8_Cond2and3_phase_space.pdf")
@@ -302,9 +302,9 @@ frequencies3 = np.fft.fftfreq(n3, d=1/fs)
 positive_freqs3 = frequencies3[:n3//2]
 positive_fft3 = np.abs(fft_values3[:n3//2])
 
-ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
-ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
-ax.plot(positive_freqs3, positive_fft3, color="green",label="Exp. 3")
+ax.plot(positive_freqs1, positive_fft1, color="blue",label="Condition initiale 1")
+ax.plot(positive_freqs2, positive_fft2, color="red",label="Condition initiale 2")
+ax.plot(positive_freqs3, positive_fft3, color="green",label="Condition initiale 3")
 
 freq_range=[0,1]
 ax.set_xlim(freq_range)
