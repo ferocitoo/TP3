@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import importlib.util
 import sys
 import os
+from scipy.integrate import simpson as simps
 
 module_name = "utils_v2"
 file_path = "/workspaces/TP-Chaos/utils_v2.py"
@@ -17,19 +18,16 @@ import utils_v2 as u
 
 import pandas as pd
 
-
-
-
 #Import the data
 C1_C0_S1 = pd.read_csv("TP_Chaos/Datas/Config1_Cond0_Simul1.csv", delimiter=';', decimal=',')
 C1_C0_S1_t=C1_C0_S1.iloc[:,0]
-C1_C0_S1_theta=C1_C0_S1.iloc[:,1]
-C1_C0_S1_thetadot=C1_C0_S1.iloc[:,2]
+C1_C0_S1_thetadot=C1_C0_S1.iloc[:,1]
+C1_C0_S1_theta=C1_C0_S1.iloc[:,2]
 
 C1_C1_S1 = pd.read_csv("TP_Chaos/Datas/Config1_Cond1_Simul1.csv", delimiter=';', decimal=',')
 C1_C1_S1_t=C1_C1_S1.iloc[:,0]
-C1_C1_S1_theta=C1_C1_S1.iloc[:,1]
-C1_C1_S1_thetadot=C1_C1_S1.iloc[:,2]
+C1_C1_S1_thetadot=C1_C1_S1.iloc[:,1]
+C1_C1_S1_theta=C1_C1_S1.iloc[:,2]
 
 C1_C1_S2 = pd.read_csv("TP_Chaos/Datas/Config1_Cond1_Simul2.csv", delimiter=';', decimal=',')
 C1_C1_S2_t=C1_C1_S2.iloc[:,0]
@@ -113,205 +111,314 @@ CJOLI_thetadot=CJOLI.iloc[:,2]
 
 
 
-#----------Configuration 5, Condition 2, Simulation 1 and 2----------#
+# #----------Configuration 5, Condition 2, Simulation 1 and 2----------#
 
-#--Plot--#
-t1 = C5_C2_S1_t
-theta1 = C5_C2_S1_theta
-thetadot1 = C5_C2_S1_thetadot
+# #--Plot--#
+# t1 = C5_C2_S1_t
+# theta1 = C5_C2_S1_theta
+# thetadot1 = C5_C2_S1_thetadot
 
-t2 = C5_C2_S2_t
-theta2 = C5_C2_S2_theta
-thetadot2 = C5_C2_S2_thetadot
-
-
-#position
-xlabel = "Time [s]"
-ylabel = r"\theta" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-ax.plot(t1,theta1, label="Exp. 1", color="blue")
-ax.plot(t2,theta2, label="Exp. 2", color="red")
-
-timerange = [-2,30]
-ax.set_xlim(timerange)
-
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_angle.pdf")
+# t2 = C5_C2_S2_t
+# theta2 = C5_C2_S2_theta
+# thetadot2 = C5_C2_S2_thetadot
 
 
-#angular speed
-xlabel = "Time [s]"
-ylabel = r"\dot{\theta}" + " [rad]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+# #position
+# xlabel = "Time [s]"
+# ylabel = r"\theta" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
-ax.plot(t2,thetadot2, label="Exp. 2", color="red")
+# ax.plot(t1,theta1, label="Exp. 1", color="blue")
+# ax.plot(t2,theta2, label="Exp. 2", color="red")
 
-timerange = [-2,30]
-ax.set_xlim(timerange)
+# timerange = [-2,30]
+# ax.set_xlim(timerange)
 
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_speed.pdf")
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_angle.pdf")
 
 
+# #angular speed
+# xlabel = "Time [s]"
+# ylabel = r"\dot{\theta}" + " [rad]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-#phase space
-xlabel = r"\dot{\theta}" + " [rad]"
-ylabel = r"\theta" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+# ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
+# ax.plot(t2,thetadot2, label="Exp. 2", color="red")
 
-ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
-ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
+# timerange = [-2,30]
+# ax.set_xlim(timerange)
 
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_phase_space.pdf")
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_speed.pdf")
 
 
 
+# #phase space
+# xlabel = r"\dot{\theta}" + " [V]"
+# ylabel = r"\theta" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-#spectral analysis
-xlabel = "Frequency [Hz]"
-ylabel = "Amplitude"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+# ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
+# ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
 
-fs1 = 1/(t1[1]-t1[0])
-fs2 = 1/(t2[1]-t2[0])
-
-n1 = len(theta1)
-n2 = len(theta2)
-
-#FFT 
-theta_demeaned1 = theta1 - np.mean(theta1)
-theta_demeaned1 = np.pad(theta_demeaned1, (0, n1), 'constant')
-n1 = len(theta_demeaned1)
-fft_values1 = np.fft.fft(theta_demeaned1)
-frequencies1 = np.fft.fftfreq(n1, d=1/fs1)
-positive_freqs1 = frequencies1[:n1//2]
-positive_fft1 = np.abs(fft_values1[:n1//2])
-
-theta_demeaned2 = theta2 - np.mean(theta2)
-theta_demeaned2 = np.pad(theta_demeaned2, (0, n2), 'constant')
-n2 = len(theta_demeaned2)
-fft_values2 = np.fft.fft(theta_demeaned2)
-frequencies2 = np.fft.fftfreq(n2, d=1/fs2)
-positive_freqs2 = frequencies2[:n2//2]
-positive_fft2 = np.abs(fft_values2[:n2//2])
-
-ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
-ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
-
-
-freq_range=[0,1]
-ax.set_xlim(freq_range)
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_spectral_analysis.pdf")
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_phase_space.pdf")
 
 
 
 
+# #spectral analysis
+# xlabel = r"$\nu$ [Hz]"
+# ylabel = r"$\mathcal{F}(\theta - \bar{\theta})(\nu)$" + "[a.u]" 
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-#----------Configuration 6, Condition 1, Simulation 1 and 2----------#
+# fs1 = 1/(t1[1]-t1[0])
+# fs2 = 1/(t2[1]-t2[0])
 
-#--Plot--#
-t1 = C6_C1_S1_t
-theta1 = C6_C1_S1_theta
-thetadot1 = C6_C1_S1_thetadot
+# n1 = len(theta1)
+# n2 = len(theta2)
 
-t2 = C6_C1_S2_t
-theta2 = C6_C1_S2_theta
-thetadot2 = C6_C1_S2_thetadot
+# #FFT 
+# theta_demeaned1 = theta1 - np.mean(theta1)
+# theta_demeaned1 = np.pad(theta_demeaned1, (0, n1), 'constant')
+# n1 = len(theta_demeaned1)
+# fft_values1 = np.fft.fft(theta_demeaned1)
+# frequencies1 = np.fft.fftfreq(n1, d=1/fs1)
+# positive_freqs1 = frequencies1[:n1//2]
+# positive_fft1 = np.abs(fft_values1[:n1//2])
 
+# theta_demeaned2 = theta2 - np.mean(theta2)
+# theta_demeaned2 = np.pad(theta_demeaned2, (0, n2), 'constant')
+# n2 = len(theta_demeaned2)
+# fft_values2 = np.fft.fft(theta_demeaned2)
+# frequencies2 = np.fft.fftfreq(n2, d=1/fs2)
+# positive_freqs2 = frequencies2[:n2//2]
+# positive_fft2 = np.abs(fft_values2[:n2//2])
 
-#position
-xlabel = "Time [s]"
-ylabel = r"$\theta$" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+# norm1 = simps(positive_fft1,x = positive_freqs1)
+# norm2 = simps(positive_fft2,x = positive_freqs2)
+# positive_fft1 = positive_fft1/norm1
+# positive_fft2 = positive_fft2/norm2
 
-ax.plot(t1,theta1, label="Exp. 1", color="blue")
-ax.plot(t2,theta2, label="Exp. 2", color="red")
+# ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
+# ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
 
-timerange = [-2,30]
-ax.set_xlim(timerange)
+# max_freq1 = positive_freqs1[np.argmax(positive_fft1)]
+# max_freq2 = positive_freqs2[np.argmax(positive_fft2)]
 
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_angle.pdf")
+# # ax.axvline(x=max_freq1, color="blue", linestyle="--",label=rf"x = {max_freq1*10:.2f} $\times 10^{{{-1}}}$ Hz")
+# # ax.axvline(x=max_freq2, color="red", linestyle="--",label=rf"x = {max_freq2*10:.2f} $\times 10^{{{-1}}}$ Hz")
 
-
-#angular speed
-xlabel = "Time [s]"
-ylabel = r"$\dot{\theta}$" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
-ax.plot(t2,thetadot2, label="Exp. 2", color="red")
-
-timerange = [-2,30]
-ax.set_xlim(timerange)
-
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_speed.pdf")
-
-
-#phase space
-xlabel = r"$\dot{\theta}$" + " [V]"
-ylabel = r"$\theta$" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
-ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
-
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_phase_space.pdf")
+# print("Max frequency, C5_C2_S1/S2: ",max_freq1,max_freq2)
 
 
-#spectral analysis
-xlabel = "Frequency [Hz]"
-ylabel = "Amplitude"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+# freq_range=[0,1]
+# ax.set_xlim(freq_range)
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond2_Simul1_2_spectral_analysis.pdf")
 
-fs1 = 1/(t1[1]-t1[0])
-fs2 = 1/(t2[1]-t2[0])
 
-n1 = len(theta1)
-n2 = len(theta2)
 
-#FFT
-theta_demeaned1 = theta1 - np.mean(theta1)
-theta_demeaned1 = np.pad(theta_demeaned1, (0, n1), 'constant')
-n1 = len(theta_demeaned1)
-fft_values1 = np.fft.fft(theta_demeaned1)
-frequencies1 = np.fft.fftfreq(n1, d=1/fs1)
+# theta2 = theta2[:len(theta1)]
+# t=t1
 
-positive_freqs1 = frequencies1[:n1//2]
-positive_fft1 = np.abs(fft_values1[:n1//2])
 
-theta_demeaned2 = theta2 - np.mean(theta2)
-theta_demeaned2 = np.pad(theta_demeaned2, (0, n2), 'constant')
-n2 = len(theta_demeaned2)
-fft_values2 = np.fft.fft(theta_demeaned2)
-frequencies2 = np.fft.fftfreq(n2, d=1/fs2)
+# thetadot2 = thetadot2[:len(thetadot1)]
 
-positive_freqs2 = frequencies2[:n2//2]
-positive_fft2 = np.abs(fft_values2[:n2//2])
+# #Get the excitation frequency of the system 
+# exc_freq = positive_freqs1[np.argmax(positive_fft1)]
 
-ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
-ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+# #Calculate the Lyapunov exponent
+# delta_phase = np.sqrt((theta1-theta2)**2 + ((thetadot1-thetadot2)/2*np.pi*exc_freq)**2)
 
-freq_range=[0,1]
-ax.set_xlim(freq_range)
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_spectral_analysis.pdf")
+# #make an exponential fit on the first half of the data
+# # delta_phase_fit = delta_phase[85:113]
+# # tfit = t[85:113]
 
+# delta_phase_fit = delta_phase[150:540]
+# tfit = t1[150:540]
+
+
+
+# fit = np.polyfit(tfit,np.log(delta_phase_fit),1)
+
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Time [s]", ylabel=r"$\delta$ [a.u.]")
+# ax.plot(t,delta_phase, label="Data", color="blue")
+# ax.set_yscale("log")
+
+# # ax.scatter(t[540],delta_phase[540],color="red",s=30)
+# # ax.scatter(t[150],delta_phase[150],color="red",s=30)
+
+
+# #plot the fit
+# ax.plot(t,np.exp(fit[1])*np.exp(fit[0]*t), label=rf"$\delta(t) \propto e^{{({fit[0]*10:.2f} \times 10^{{{-1}}})t}} $", color="red", linestyle="--")   
+
+# ax.set_xlim([0,50])
+# ax.set_ylim([1e-4,1e1])
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config5_Cond2_lyapunov.pdf")
+
+
+
+# #----------Configuration 6, Condition 1, Simulation 1 and 2----------#
+
+# #--Plot--#
+# t1 = C6_C1_S1_t
+# theta1 = C6_C1_S1_theta
+# thetadot1 = C6_C1_S1_thetadot
+
+# t2 = C6_C1_S2_t
+# theta2 = C6_C1_S2_theta
+# thetadot2 = C6_C1_S2_thetadot
+
+
+# #position
+# xlabel = "Time [s]"
+# ylabel = r"$\theta$" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# ax.plot(t1,theta1, label="Exp. 1", color="blue")
+# ax.plot(t2,theta2, label="Exp. 2", color="red")
+
+# timerange = [-2,30]
+# ax.set_xlim(timerange)
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_angle.pdf")
+
+
+# #angular speed
+# xlabel = "Time [s]"
+# ylabel = r"$\dot{\theta}$" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
+# ax.plot(t2,thetadot2, label="Exp. 2", color="red")
+
+# timerange = [-2,30]
+# ax.set_xlim(timerange)
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_speed.pdf")
+
+
+# #phase space
+# xlabel = r"$\dot{\theta}$" + " [V]"
+# ylabel = r"$\theta$" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
+# ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_phase_space.pdf")
+
+
+# #spectral analysis
+# xlabel = r"$\nu$ [Hz]"
+# ylabel = r"$\mathcal{F}(\theta - \bar{\theta})(\nu)$" + "[a.u]" 
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# fs1 = 1/(t1[1]-t1[0])
+# fs2 = 1/(t2[1]-t2[0])
+
+# n1 = len(theta1)
+# n2 = len(theta2)
+
+# #FFT
+# theta_demeaned1 = theta1 - np.mean(theta1)
+# theta_demeaned1 = np.pad(theta_demeaned1, (0, n1), 'constant')
+# n1 = len(theta_demeaned1)
+# fft_values1 = np.fft.fft(theta_demeaned1)
+# frequencies1 = np.fft.fftfreq(n1, d=1/fs1)
+
+# positive_freqs1 = frequencies1[:n1//2]
+# positive_fft1 = np.abs(fft_values1[:n1//2])
+
+# theta_demeaned2 = theta2 - np.mean(theta2)
+# theta_demeaned2 = np.pad(theta_demeaned2, (0, n2), 'constant')
+# n2 = len(theta_demeaned2)
+# fft_values2 = np.fft.fft(theta_demeaned2)
+# frequencies2 = np.fft.fftfreq(n2, d=1/fs2)
+
+# positive_freqs2 = frequencies2[:n2//2]
+# positive_fft2 = np.abs(fft_values2[:n2//2])
+
+# norm1 = simps(positive_fft1,x=positive_freqs1)
+# norm2 = simps(positive_fft2,x=positive_freqs2)
+# positive_fft1 = positive_fft1/norm1
+# positive_fft2 = positive_fft2/norm2
+
+# ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
+# ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+
+# max_freq1 = positive_freqs1[np.argmax(positive_fft1)]
+# max_freq2 = positive_freqs2[np.argmax(positive_fft2)]
+
+# # ax.axvline(x=max_freq1, color="blue", linestyle="--",label=rf"x = {max_freq1*10:.2f} $\times 10^{{{-1}}}$ Hz")
+# # ax.axvline(x=max_freq2, color="red", linestyle="--",label=rf"x = {max_freq2*10:.2f} $\times 10^{{{-1}}}$ Hz")
+
+# print("Max frequency, C6_C1_S1/S2: ",max_freq1,max_freq2)
+
+
+# freq_range=[0,1]
+# ax.set_xlim(freq_range)
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config6_Cond1_Simul1_2_spectral_analysis.pdf")
+
+
+
+# #LYAPUNOV EXPONENT
+# theta2 = theta2[:len(theta1)]
+# t=t1
+
+
+# thetadot2 = thetadot2[:len(thetadot1)]
+
+# #Get the excitation frequency of the system 
+# exc_freq = positive_freqs1[np.argmax(positive_fft1)]
+
+# #Calculate the Lyapunov exponent
+# delta_phase = np.sqrt((theta1-theta2)**2 + ((thetadot1-thetadot2)/2*np.pi*exc_freq)**2)
+
+# #make an exponential fit on the first half of the data
+# # delta_phase_fit = delta_phase[85:113]
+# # tfit = t[85:113]
+
+# delta_phase_fit = delta_phase[75:575]
+# tfit = t1[75:575]
+
+
+
+# fit = np.polyfit(tfit,np.log(delta_phase_fit),1)
+
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Time [s]", ylabel=r"$\delta$ [a.u.]")
+# ax.plot(t,delta_phase, label="Data", color="blue")
+# ax.set_yscale("log")
+
+# # ax.scatter(t[575],delta_phase[575],color="red",s=30)
+# # ax.scatter(t[75],delta_phase[75],color="red",s=30)
+
+
+# #plot the fit
+# ax.plot(t,np.exp(fit[1])*np.exp(fit[0]*t), label=rf"$\delta(t) \propto e^{{({fit[0]*10:.2f} \times 10^{{{-1}}})t}}  $", color="red", linestyle="--")   
+
+# ax.set_xlim([0,50])
+# ax.set_ylim([1e-4,1e1])
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config6_Cond1_lyapunov.pdf")
 
 
 
 #----------Configuration 1 Condition 1, Simulation 1,2,3 and 4----------#
 
 #--Plot--#
-# t1 = C1_C1_S1_t
-# theta1 = C1_C1_S1_theta
-# thetadot1 = C1_C1_S1_thetadot
+t1 = C1_C1_S1_t
+theta1 = C1_C1_S1_theta
+thetadot1 = C1_C1_S1_thetadot
 
 t2 = C1_C1_S2_t
 theta2 = C1_C1_S2_theta
@@ -330,10 +437,10 @@ xlabel = "Time [s]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-# ax.plot(t1,theta1, label="Exp. 1", color="blue")
-ax.plot(t2,theta2, label="Exp. 1", color="red")
-ax.plot(t3,theta3, label="Exp. 2", color="green")
-ax.plot(t4,theta4, label="Exp. 3", color="orange")
+ax.plot(t1,theta1, label="Exp. 1", color="blue")
+ax.plot(t2,theta2, label="Exp. 2", color="red")
+ax.plot(t3,theta3, label="Exp. 3", color="green")
+ax.plot(t4,theta4, label="Exp. 4", color="orange")
 
 timerange = [-2,30]
 ax.set_xlim(timerange)
@@ -347,10 +454,10 @@ xlabel = "Time [s]"
 ylabel = r"$\dot{\theta}$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-# ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
-ax.plot(t2,thetadot2, label="Exp. 1", color="red")
-ax.plot(t3,thetadot3, label="Exp. 2", color="green")
-ax.plot(t4,thetadot4, label="Exp. 3", color="orange")
+ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
+ax.plot(t2,thetadot2, label="Exp. 2", color="red")
+ax.plot(t3,thetadot3, label="Exp. 3", color="green")
+ax.plot(t4,thetadot4, label="Exp. 4", color="orange")
 
 timerange = [-2,30]
 ax.set_xlim(timerange)
@@ -365,18 +472,18 @@ xlabel = r"$\dot{\theta}$" + " [V]"
 ylabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-# ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
-ax.plot(thetadot2,theta2,color="red",label="Exp. 1")
-ax.plot(thetadot3,theta3,color="green",label="Exp. 2")
-ax.plot(thetadot4,theta4,color="orange",label="Exp. 3")
+ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
+ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
+ax.plot(thetadot3,theta3,color="green",label="Exp. 3")
+ax.plot(thetadot4,theta4,color="orange",label="Exp. 4")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/Config1_Cond1_Simul1_2_3_4_phase_space.pdf")
 
 
 #spectral analysis
-xlabel = "Frequency [Hz]"
-ylabel = "Amplitude"
+xlabel = r"$\nu$ [Hz]"
+ylabel = r"$\mathcal{F}(\theta - \bar{\theta})(\nu)$" + "[a.u]" 
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 fs1 = 1/(t1[1]-t1[0])
@@ -389,6 +496,7 @@ n1 = len(theta1)
 n2 = len(theta2)
 n3 = len(theta3)
 n4 = len(theta4)
+
 
 #FFT
 theta_demeaned1 = theta1 - np.mean(theta1)
@@ -423,10 +531,37 @@ frequencies4 = np.fft.fftfreq(n4, d=1/fs4)
 positive_freqs4 = frequencies4[:n4//2]
 positive_fft4 = np.abs(fft_values4[:n4//2])
 
-# ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
-ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 1")
-ax.plot(positive_freqs3, positive_fft3, color="green",label="Exp. 2")
-ax.plot(positive_freqs4, positive_fft4, color="orange",label="Exp. 3")
+
+
+norm1 = simps(positive_fft1,x = positive_freqs1)
+norm2 = simps(positive_fft2,x = positive_freqs2)
+norm3 = simps(positive_fft3,x = positive_freqs3)
+norm4 = simps(positive_fft4,x = positive_freqs4)
+
+positive_fft1 = positive_fft1/norm1
+positive_fft2 = positive_fft2/norm2
+positive_fft3 = positive_fft3/norm3
+positive_fft4 = positive_fft4/norm4
+
+ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
+ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+ax.plot(positive_freqs3, positive_fft3, color="green",label="Exp. 3")
+ax.plot(positive_freqs4, positive_fft4, color="orange",label="Exp. 4")
+
+max_freq1 = positive_freqs1[np.argmax(positive_fft1)]
+max_freq2 = positive_freqs2[np.argmax(positive_fft2)]
+max_freq3 = positive_freqs3[np.argsort(positive_fft3)[-2]]
+max_freq4 = positive_freqs4[np.argmax(positive_fft4)]
+
+# ax.axvline(x=max_freq1, color="blue", linestyle="--",label=rf"x = {max_freq1*10:.2f} $\times 10^{{{-1}}}$ Hz")
+# ax.axvline(x=max_freq2, color="red", linestyle="--",label=rf"x = {max_freq2*10:.2f} $\times 10^{{{-1}}}$ Hz")
+# ax.axvline(x=max_freq3, color="green", linestyle="--",label=rf"x = {max_freq3*10:.2f} $\times 10^{{{-1}}}$ Hz")
+# ax.axvline(x=max_freq4, color="orange", linestyle="--",label=rf"x = {max_freq4*10:.2f} $\times 10^{{{-1}}}$ Hz")
+
+ax.axvline(x=(5/3)*max_freq3, color="black", linestyle="--",label = r"$\nu^\star + \frac{2}{3}\nu^\star$")
+ax.axvline(x=(1/3)*max_freq3, color="black", linestyle="-.",label = r"$\nu^\star - \frac{2}{3}\nu^\star$")
+
+print("Max frequency, C1_C1_S1/S2/S3/S4: ",max_freq1,max_freq2,max_freq3,max_freq4)
 
 freq_range=[0,1]
 ax.set_xlim(freq_range)
@@ -435,96 +570,243 @@ fig.savefig("TP_Chaos/Figures/Config1_Cond1_Simul1_2_3_4_spectral_analysis.pdf")
 
 
 
-#----------Configuration 5 Condition 0, Simulation 1 and 2----------#
 
-#--Plot--#
-t1 = C5_C0_S1_t
-theta1 = C5_C0_S1_theta
-thetadot1 = C5_C0_S1_thetadot
-
-t2 = C5_C0_S2_t
-theta2 = C5_C0_S2_theta
-thetadot2 = C5_C0_S2_thetadot
-
-#position
-xlabel = "Time [s]"
-ylabel = r"$\theta$" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-ax.plot(t1,theta1, label="Exp. 1", color="blue")
-ax.plot(t2,theta2, label="Exp. 2", color="red")
-
-timerange = [-2,30]
-ax.set_xlim(timerange)
-
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_angle.pdf")
-
-
-#angular speed
-xlabel = "Time [s]"
-ylabel = r"$\dot{\theta}$" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
-ax.plot(t2,thetadot2, label="Exp. 2", color="red")
-
-timerange = [-2,30]
-ax.set_xlim(timerange)
-
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_speed.pdf")
-
-
-
-#phase space
-xlabel = r"$\dot{\theta}$" + " [V]"
-ylabel = r"$\theta$" + " [V]"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
-ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
-
-u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_phase_space.pdf")
-
-
-#spectral analysis
-xlabel = "Frequency [Hz]"
-ylabel = "Amplitude"
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
-
-fs1 = 1/(t1[1]-t1[0])
-fs2 = 1/(t2[1]-t2[0])
+#LYAPUNOV EXPONENT
 
 n1 = len(theta1)
 n2 = len(theta2)
+n3 = len(theta3)
+n4 = len(theta4)
+
+theta1 = theta1[:min(n1,n2,n3,n4)]
+theta2 = theta2[:min(n1,n2,n3,n4)]
+theta3 = theta3[:min(n1,n2,n3,n4)]
+theta4 = theta4[:min(n1,n2,n3,n4)]
+
+thetadot1 = thetadot1[:min(n1,n2,n3,n4)]
+thetadot2 = thetadot2[:min(n1,n2,n3,n4)]
+thetadot3 = thetadot3[:min(n1,n2,n3,n4)]
+thetadot4 = thetadot4[:min(n1,n2,n3,n4)]
+
+t=t1[:min(n1,n2,n3,n4)]
+
+exc_freq = positive_freqs1[np.argmax(positive_fft1)]
+
+#Calculate the Lyapunov exponent
+delta_phase12 = np.sqrt((theta1-theta2)**2 + ((thetadot1-thetadot2)/2*np.pi*exc_freq)**2)
+delta_phase13 = np.sqrt((theta1-theta3)**2 + ((thetadot1-thetadot3)/2*np.pi*exc_freq)**2)
+delta_phase14 = np.sqrt((theta1-theta4)**2 + ((thetadot1-thetadot4)/2*np.pi*exc_freq)**2)
+delta_phase23 = np.sqrt((theta2-theta3)**2 + ((thetadot2-thetadot3)/2*np.pi*exc_freq)**2)
+delta_phase24 = np.sqrt((theta2-theta4)**2 + ((thetadot2-thetadot4)/2*np.pi*exc_freq)**2)
+delta_phase34 = np.sqrt((theta3-theta4)**2 + ((thetadot3-thetadot4)/2*np.pi*exc_freq)**2)
+
+delta = (delta_phase12 + delta_phase13 + delta_phase14 + delta_phase23 + delta_phase24 + delta_phase34)/6
+
+#make an exponential fit on the first half of the data
+delta_phase_fit = delta_phase34[15:95]
+tfit = t[15:95]
 
 
-#FFT
-theta_demeaned1 = theta1 - np.mean(theta1)
-theta_demeaned1 = np.pad(theta_demeaned1, (0, n1), 'constant')
-n1 = len(theta_demeaned1)
-fft_values1 = np.fft.fft(theta_demeaned1)
-frequencies1 = np.fft.fftfreq(n1, d=1/fs1)
-positive_freqs1 = frequencies1[:n1//2]
-positive_fft1 = np.abs(fft_values1[:n1//2])
 
-theta_demeaned2 = theta2 - np.mean(theta2)
-theta_demeaned2 = np.pad(theta_demeaned2, (0, n2), 'constant')
-n2 = len(theta_demeaned2)
-fft_values2 = np.fft.fft(theta_demeaned2)
-frequencies2 = np.fft.fftfreq(n2, d=1/fs2)
-positive_freqs2 = frequencies2[:n2//2]
-positive_fft2 = np.abs(fft_values2[:n2//2])
 
-ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
-ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+fit = np.polyfit(tfit,np.log(delta_phase_fit),1)
 
-freq_range=[0,1]
-ax.set_xlim(freq_range)
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Time [s]", ylabel=r"$\delta_{34}$ [a.u.]")
+ax.plot(t,delta_phase34, label="Data", color="blue")
+ax.set_yscale("log")
+
+# ax.scatter(t[95],delta_phase34[95],color="red",s=30)
+# ax.scatter(t[15],delta_phase34[15],color="red",s=30)
+
+#plot the fit
+ax.plot(t,np.exp(fit[1])*np.exp(fit[0]*t), label=rf"$\delta(t) \propto e^{{({fit[0]*10:.2f} \times 10^{{{-1}}})t}} $", color="red", linestyle="--")
+
+ax.set_xlim([0,50])
+ax.set_ylim([1e-4,1e1])
+
 u.set_legend_properties(ax,fontsize=18)
-fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_spectral_analysis.pdf")
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config1_Cond1_lyapunov34.pdf")
+
+
+
+
+#make an exponential fit on the first half of the data
+delta_phase_fit = delta_phase13[25:77]
+tfit = t[25:77]
+
+
+fit = np.polyfit(tfit,np.log(delta_phase_fit),1)
+
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Time [s]", ylabel=r"$\delta_{12}$ [a.u.]")
+ax.plot(t,delta_phase13, label="Data", color="blue")
+ax.set_yscale("log")
+
+# ax.scatter(t[77],delta_phase13[77],color="red",s=30)
+# ax.scatter(t[25],delta_phase13[25],color="red",s=30)
+
+
+#plot the fit
+ax.plot(t,np.exp(fit[1])*np.exp(fit[0]*t), label=rf"$\delta(t) \propto e^{{({fit[0]*10:.2f} \times 10^{{{-1}}})t}} $", color="red", linestyle="--")
+
+ax.set_xlim([0,50])
+ax.set_ylim([1e-4,1e1])
+
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config1_Cond1_lyapunov12.pdf")
+
+
+
+
+
+
+# #----------Configuration 5 Condition 0, Simulation 1 and 2----------#
+
+# #--Plot--#
+# t1 = C5_C0_S1_t
+# theta1 = C5_C0_S1_theta
+# thetadot1 = C5_C0_S1_thetadot
+
+# t2 = C5_C0_S2_t
+# theta2 = C5_C0_S2_theta
+# thetadot2 = C5_C0_S2_thetadot
+
+# #position
+# xlabel = "Time [s]"
+# ylabel = r"$\theta$" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# ax.plot(t1,theta1, label="Exp. 1", color="blue")
+# ax.plot(t2,theta2, label="Exp. 2", color="red")
+
+# timerange = [-2,30]
+# ax.set_xlim(timerange)
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_angle.pdf")
+
+
+# #angular speed
+# xlabel = "Time [s]"
+# ylabel = r"$\dot{\theta}$" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# ax.plot(t1,thetadot1, label="Exp. 1", color="blue")
+# ax.plot(t2,thetadot2, label="Exp. 2", color="red")
+
+# timerange = [-2,30]
+# ax.set_xlim(timerange)
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_speed.pdf")
+
+
+
+# #phase space
+# xlabel = r"$\dot{\theta}$" + " [V]"
+# ylabel = r"$\theta$" + " [V]"
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# ax.plot(thetadot1,theta1,color="blue",label="Exp. 1")
+# ax.plot(thetadot2,theta2,color="red",label="Exp. 2")
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_phase_space.pdf")
+
+
+# #spectral analysis
+# xlabel = r"$\nu$ [Hz]"
+# ylabel = r"$\mathcal{F}(\theta - \bar{\theta})(\nu)$" + "[a.u]" 
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+# fs1 = 1/(t1[1]-t1[0])
+# fs2 = 1/(t2[1]-t2[0])
+
+# n1 = len(theta1)
+# n2 = len(theta2)
+
+
+# #FFT
+# theta_demeaned1 = theta1 - np.mean(theta1)
+# theta_demeaned1 = np.pad(theta_demeaned1, (0, n1), 'constant')
+# n1 = len(theta_demeaned1)
+# fft_values1 = np.fft.fft(theta_demeaned1)
+# frequencies1 = np.fft.fftfreq(n1, d=1/fs1)
+# positive_freqs1 = frequencies1[:n1//2]
+# positive_fft1 = np.abs(fft_values1[:n1//2])
+
+# theta_demeaned2 = theta2 - np.mean(theta2)
+# theta_demeaned2 = np.pad(theta_demeaned2, (0, n2), 'constant')
+# n2 = len(theta_demeaned2)
+# fft_values2 = np.fft.fft(theta_demeaned2)
+# frequencies2 = np.fft.fftfreq(n2, d=1/fs2)
+# positive_freqs2 = frequencies2[:n2//2]
+# positive_fft2 = np.abs(fft_values2[:n2//2])
+
+# norm1 = simps(positive_fft1,x = positive_freqs1)
+# norm2 = simps(positive_fft2,x = positive_freqs2)
+# positive_fft1 = positive_fft1/norm1
+# positive_fft2 = positive_fft2/norm2
+
+# ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
+# ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+
+# max_freq1 = positive_freqs1[np.argmax(positive_fft1)]
+# max_freq2 = positive_freqs2[np.argmax(positive_fft2)]
+
+# # ax.axvline(x=max_freq1, color="blue", linestyle="--",label=rf"x = {max_freq1*10:.2f} $\times 10^{{{-1}}}$ Hz")
+# # ax.axvline(x=max_freq2, color="red", linestyle="--",label=rf"x = {max_freq2*10:.2f} $\times 10^{{{-1}}}$ Hz")
+
+# print("Max frequency, C5_C0_S1/S2: ",max_freq1,max_freq2)
+
+# freq_range=[0,1]
+# ax.set_xlim(freq_range)
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("TP_Chaos/Figures/Config5_Cond0_Simul1_2_spectral_analysis.pdf")
+
+
+
+
+
+# #LYAPUNOV EXPONENT
+# theta2 = theta2[:len(theta1)]
+# t=t1
+
+
+# thetadot2 = thetadot2[:len(thetadot1)]
+
+# #Get the excitation frequency of the system 
+# exc_freq = positive_freqs1[np.argmax(positive_fft1)]
+
+# #Calculate the Lyapunov exponent
+# delta_phase = np.sqrt((theta1-theta2)**2 + ((thetadot1-thetadot2)/2*np.pi*exc_freq)**2)
+
+# #make an exponential fit on the first half of the data
+# # delta_phase_fit = delta_phase[85:113]
+# # tfit = t[85:113]
+
+# delta_phase_fit = delta_phase[25:100]
+# tfit = t1[25:100]
+
+
+
+# fit = np.polyfit(tfit,np.log(delta_phase_fit),1)
+
+# ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Time [s]", ylabel=r"$\delta$ [a.u.]")
+# ax.plot(t,delta_phase, label="Data", color="blue")
+# ax.set_yscale("log")
+
+# # ax.scatter(t[100],delta_phase[100],color="red",s=30)
+# # ax.scatter(t[25],delta_phase[25],color="red",s=30)
+
+
+# #plot the fit
+# ax.plot(t,np.exp(fit[1])*np.exp(fit[0]*t), label=rf"$\delta(t) \propto e^{{({fit[0]*10:.2f} \times 10^{{{-1}}})t}} $", color="red", linestyle="--")   
+
+# ax.set_xlim([0,50])
+# ax.set_ylim([1e-4,1e1])
+
+# u.set_legend_properties(ax,fontsize=18)
+# fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config5_Cond0_lyapunov.pdf")
 
 
 #----------Configuration 5 Condition 1, Simulation 1 and 2----------#
@@ -581,8 +863,8 @@ fig.savefig("TP_Chaos/Figures/Config5_Cond1_Simul1_2_phase_space.pdf")
 
 
 #spectral analysis
-xlabel = "Frequency [Hz]"
-ylabel = "Amplitude"
+xlabel = r"$\nu$ [Hz]"
+ylabel = r"$\mathcal{F}(\theta - \bar{\theta})(\nu)$" + "[a.u]" 
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 fs1 = 1/(t1[1]-t1[0])
@@ -608,13 +890,74 @@ frequencies2 = np.fft.fftfreq(n2, d=1/fs2)
 positive_freqs2 = frequencies2[:n2//2]
 positive_fft2 = np.abs(fft_values2[:n2//2])
 
+norm1 = simps(positive_fft1,x=positive_freqs1)
+norm2 = simps(positive_fft2,x=positive_freqs2)
+positive_fft1 = positive_fft1/norm1
+positive_fft2 = positive_fft2/norm2
+
 ax.plot(positive_freqs1, positive_fft1, color="blue",label="Exp. 1")
 ax.plot(positive_freqs2, positive_fft2, color="red",label="Exp. 2")
+
+max_freq1 = positive_freqs1[np.argmax(positive_fft1)]
+max_freq2 = positive_freqs2[np.argmax(positive_fft2)]
+
+# ax.axvline(x=max_freq1, color="blue", linestyle="--",label=rf"x = {max_freq1*10:.2f} $\times 10^{{{-1}}}$ Hz")
+# ax.axvline(x=max_freq2, color="red", linestyle="--",label=rf"x = {max_freq2*10:.2f} $\times 10^{{{-1}}}$ Hz")
+
+ax.axvline(x=(5/3)*max_freq1, color="black", linestyle="--",label = r"$\nu^\star + \frac{2}{3}\nu^\star$")
+ax.axvline(x=(1/3)*max_freq1, color="black", linestyle="-.",label = r"$\nu^\star - \frac{2}{3}\nu^\star$")
+
+print("Max frequency, C5_C1_S1/S2: ",max_freq1,max_freq2)
 
 freq_range=[0,1]
 ax.set_xlim(freq_range)
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("TP_Chaos/Figures/Config5_Cond1_Simul1_2_spectral_analysis.pdf")
+
+
+#LYAPUNOV EXPONENT
+theta2 = theta2[:min(n1,n2)]
+theta1 = theta1[:min(n1,n2)]
+t=t2[:min(n1,n2)]
+thetadot2 = thetadot2[:min(n1,n2)]
+thetadot2 = thetadot2[:min(n1,n2)]
+
+
+#Get the excitation frequency of the system
+exc_freq = positive_freqs1[np.argmax(positive_fft1)]
+
+#Calculate the Lyapunov exponent
+delta_phase = np.sqrt((theta1-theta2)**2 + ((thetadot1-thetadot2)/2*np.pi*exc_freq)**2)
+
+#make an exponential fit on the first half of the data
+# delta_phase_fit = delta_phase[85:113]
+# tfit = t[85:113]
+
+delta_phase_fit = delta_phase[25:100]
+tfit = t1[25:100]
+
+
+fit = np.polyfit(tfit,np.log(delta_phase_fit),1)
+
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel="Time [s]", ylabel=r"$\delta$ [a.u.]")
+ax.plot(t,delta_phase, label="Data", color="blue")
+ax.set_yscale("log")
+
+# ax.scatter(t[100],delta_phase[100],color="red",s=30)
+# ax.scatter(t[25],delta_phase[25],color="red",s=30)
+
+#plot the fit
+ax.plot(t,np.exp(fit[1])*np.exp(fit[0]*t), label=rf"$\delta(t) \propto e^{{({fit[0]*10:.2f} \times 10^{{{-1}}})t}} $", color="red", linestyle="--")
+
+ax.set_xlim([0,50])
+ax.set_ylim([1e-4,1e1])
+
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config5_Cond1_lyapunov.pdf")
+
+
+
+
 
 
 
@@ -632,8 +975,8 @@ fig.savefig("TP_Chaos/Figures/Config5_JOLI_phase_space.pdf")
 
 
 #spectral analysis
-xlabel = "Frequency [Hz]"
-ylabel = "Amplitude"
+xlabel = r"$\nu$ [Hz]"
+ylabel = r"$\mathcal{F}(\theta - \bar{\theta})(\nu)$" + "[a.u]" 
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 fs = 1/(CJOLI_t[1]-CJOLI_t[0])
@@ -650,6 +993,12 @@ positive_freqs = frequencies[:n//2]
 positive_fft = np.abs(fft_values[:n//2])
 
 ax.plot(positive_freqs, positive_fft, color="black")
+
+max_freq = positive_freqs[np.argmax(positive_fft)]
+
+# ax.axvline(x=max_freq, color="black", linestyle="--",label=rf"x = {max_freq*10:.2f} $\times 10^{{{-1}}}$ Hz")
+
+print("Max frequency, CJoli: ",max_freq)
 
 freq_range=[0,1]
 ax.set_xlim(freq_range)
