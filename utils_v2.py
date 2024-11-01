@@ -327,7 +327,7 @@ def import_csv(filename = "CSV.csv") :
     return data
 
 
-def set_legend_properties(ax,markersize=15,ncol = 1, loc = "best", fontsize=13, fontweight='normal', fontstyle='italic', text_color='black', border_color='black', border_linewidth=2):
+def set_legend_properties(ax,markersize=15,ncol = 1, loc = "best", fontsize=20, fontweight='normal', fontstyle='italic', text_color='black', border_color='black', border_linewidth=2):
         
     # i = 0
     # j= 0

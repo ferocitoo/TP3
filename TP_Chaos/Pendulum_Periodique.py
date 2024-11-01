@@ -26,38 +26,38 @@ import pandas as pd
 #Import the data
 C7_Droite = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config7_Droite.csv", delimiter=';', decimal=',')
 C7_Droite_t=C7_Droite.iloc[:,0]
-C7_Droite_theta=C7_Droite.iloc[:,1]
-C7_Droite_thetadot=C7_Droite.iloc[:,2]
+C7_Droite_thetadot=C7_Droite.iloc[:,1]
+C7_Droite_theta=C7_Droite.iloc[:,2]
 
 C7_Gauche = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config7_Gauche.csv", delimiter=';', decimal=',')
 C7_Gauche_t=C7_Gauche.iloc[:,0]
-C7_Gauche_theta=C7_Gauche.iloc[:,1]
-C7_Gauche_thetadot=C7_Gauche.iloc[:,2]
+C7_Gauche_thetadot=C7_Gauche.iloc[:,1]
+C7_Gauche_theta=C7_Gauche.iloc[:,2]
 
 C7_GaucheDroite = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config7_GaucheDroite.csv", delimiter=';', decimal=',')
 C7_GaucheDroite_t=C7_GaucheDroite.iloc[:,0]
-C7_GaucheDroite_theta=C7_GaucheDroite.iloc[:,1]
-C7_GaucheDroite_thetadot=C7_GaucheDroite.iloc[:,2]
+C7_GaucheDroite_thetadot=C7_GaucheDroite.iloc[:,1]
+C7_GaucheDroite_theta=C7_GaucheDroite.iloc[:,2]
 
 C8_C1_S1 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond1_Simul1.csv", delimiter=';', decimal=',')
 C8_C1_S1_t=C8_C1_S1.iloc[:,0]
-C8_C1_S1_theta=C8_C1_S1.iloc[:,1]
-C8_C1_S1_thetadot=C8_C1_S1.iloc[:,2]
+C8_C1_S1_thetadot=C8_C1_S1.iloc[:,1]
+C8_C1_S1_theta=C8_C1_S1.iloc[:,2]
 
 C8_C1_S2 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond1_Simul2.csv", delimiter=';', decimal=',')
 C8_C1_S2_t=C8_C1_S2.iloc[:,0]
-C8_C1_S2_theta=C8_C1_S2.iloc[:,1]
-C8_C1_S2_thetadot=C8_C1_S2.iloc[:,2]
+C8_C1_S2_thetadot=C8_C1_S2.iloc[:,1]
+C8_C1_S2_theta=C8_C1_S2.iloc[:,2]
 
 C8_C2_S1 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond2_Simul1.csv", delimiter=';', decimal=',')
 C8_C2_S1_t=C8_C2_S1.iloc[:,0]
-C8_C2_S1_theta=C8_C2_S1.iloc[:,1]
-C8_C2_S1_thetadot=C8_C2_S1.iloc[:,2]
+C8_C2_S1_thetadot=C8_C2_S1.iloc[:,1]
+C8_C2_S1_theta=C8_C2_S1.iloc[:,2]
 
 C8_C3_S1 = pd.read_csv("/workspaces/TP-Chaos/TP_Chaos/Datas/Config8_Cond3_Simul1.csv", delimiter=';', decimal=',')
 C8_C3_S1_t=C8_C3_S1.iloc[:,0]
-C8_C3_S1_theta=C8_C3_S1.iloc[:,1]
-C8_C3_S1_thetadot=C8_C3_S1.iloc[:,2]
+C8_C3_S1_thetadot=C8_C3_S1.iloc[:,1]
+C8_C3_S1_theta=C8_C3_S1.iloc[:,2]
 
 
 #position
@@ -93,13 +93,13 @@ fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config7_angul_speed.pdf")
 
 
 #phase space
-xlabel = r"$\dot{\theta}$" + " [V]"
-ylabel = r"$\theta$" + " [V]"
+ylabel = r"$\dot{\theta}$" + " [V]"
+xlabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C7_Droite_thetadot,C7_Droite_theta, label="Right potential well", color="blue")
-ax.plot(C7_Gauche_thetadot,C7_Gauche_theta, label="Left potential well", color="red")
-ax.plot(C7_GaucheDroite_thetadot,C7_GaucheDroite_theta, label="Both potential wells", color="green")
+ax.plot(C7_Droite_theta,C7_Droite_thetadot, label="Right potential well", color="blue")
+ax.plot(C7_Gauche_theta,C7_Gauche_thetadot, label="Left potential well", color="red")
+ax.plot(C7_GaucheDroite_theta,C7_GaucheDroite_thetadot, label="Both potential wells", color="green")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config7_phase_space.pdf")
@@ -166,7 +166,23 @@ ax.set_xlim(freq_range)
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config7_spectral_analysis.pdf")
 
+
+
+
+
+
+
 #Config8Cond1
+C8_C1_S1_theta = C8_C1_S1_theta.to_numpy()[200:]
+C8_C1_S1_t = C8_C1_S1_t.to_numpy()[200:] - C8_C1_S1_t.to_numpy()[200]
+C8_C1_S1_thetadot = C8_C1_S1_thetadot.to_numpy()[200:]
+
+C8_C1_S2_theta = C8_C1_S2_theta.to_numpy()[15:]
+C8_C1_S2_t = C8_C1_S2_t.to_numpy()[15:] - C8_C1_S2_t.to_numpy()[15]
+C8_C1_S2_thetadot = C8_C1_S2_thetadot.to_numpy()[15:]
+
+
+
 
 #position
 xlabel = "Time [s]"
@@ -176,7 +192,7 @@ ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 ax.plot(C8_C1_S1_t,C8_C1_S1_theta, label="In. Cond. 1", color="blue")
 ax.plot(C8_C1_S2_t,C8_C1_S2_theta, label="In. Cond. 2", color="red")
 
-timerange = [-2,40]
+timerange = [-2,35]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
@@ -191,7 +207,7 @@ ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 ax.plot(C8_C1_S1_t,C8_C1_S1_thetadot, label="In. Cond. 1", color="blue")
 ax.plot(C8_C1_S2_t,C8_C1_S2_thetadot, label="In. Cond. 2", color="red")
 
-timerange = [-2,40]
+timerange = [-2,35]
 ax.set_xlim(timerange)
 
 u.set_legend_properties(ax,fontsize=18)
@@ -199,12 +215,12 @@ fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond1_angul_speed.pdf
 
 
 #phase space
-xlabel = r"$\dot{\theta}$" + " [V]"
-ylabel = r"$\theta$" + " [V]"
+ylabel = r"$\dot{\theta}$" + " [V]"
+xlabel = r"$\theta$" + " [V]"
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-ax.plot(C8_C1_S1_thetadot,C8_C1_S1_theta, label="In. Cond. 1", color="blue")
-ax.plot(C8_C1_S2_thetadot,C8_C1_S2_theta, label="In. Cond. 2", color="red")
+ax.plot(C8_C1_S1_theta,C8_C1_S1_thetadot, label="In. Cond. 1", color="blue")
+ax.plot(C8_C1_S2_theta,C8_C1_S2_thetadot, label="In. Cond. 2", color="red")
 
 u.set_legend_properties(ax,fontsize=18)
 fig.savefig("/workspaces/TP-Chaos/TP_Chaos/Figures/Config8_Cond1_phase_space.pdf")
@@ -250,7 +266,7 @@ max_freq2 = positive_freqs2[np.argmax(positive_fft2)]
 ax.axvline(x=max_freq1, color="blue", linestyle="--",label=rf"x = {max_freq1*10:.2f} $\times 10^{{{-1}}}$ Hz")
 ax.axvline(x=max_freq2, color="red", linestyle="--",label=rf"x = {max_freq2*10:.2f} $\times 10^{{{-1}}}$ Hz")
 
-# ax.axvline(x=(5/3)*max_freq1, color="blue", linestyle="--",label=r"$\nu^\star + \frac{2}{3}\nu^\star$")
+# ax.axvline(x=(3)*max_freq1, color="blue", linestyle="--",label=r"$\nu^\star + \frac{2}{3}\nu^\star$")
 # ax.axvline(x=(1/3)*max_freq2, color="red", linestyle="--",label=r"$\nu^\star + \frac{2}{3}\nu^\star$")
 
 freq_range=[0,1]
@@ -273,14 +289,14 @@ exc_freq = positive_freqs1[np.argmax(positive_fft1)]
 
 
 #Calculate the Lyapunov exponent
-delta_phase = np.sqrt((theta1-theta2)**2 + ((thetadot1-thetadot2)/2*np.pi*exc_freq)**2)
+delta_phase = np.sqrt((theta1-theta2)**2 + ((thetadot1-thetadot2))**2)
 
 #make an exponential fit on the first half of the data
 # delta_phase_fit = delta_phase[85:113]
 # tfit = t[85:113]
 
-delta_phase_fit = delta_phase[85:]
-tfit = t[85:]
+delta_phase_fit = delta_phase[200:]
+tfit = t[200:]
 
 # ax.scatter(t[113],delta_phase[113],color="red")
 # ax.scatter(t[85],delta_phase[85],color="red")

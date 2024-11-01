@@ -3,6 +3,13 @@ import matplotlib.pyplot as plt
 import importlib.util
 import sys
 import os
+from matplotlib.ticker import FuncFormatter
+from matplotlib.lines import Line2D
+import matplotlib.patches as mpatches
+from matplotlib.collections import PathCollection
+
+from matplotlib.patches import Rectangle
+from matplotlib.patches import ConnectionPatch
 
 module_name = "utils_v2"
 file_path = "/workspaces/TP-Chaos/utils_v2.py"
@@ -538,72 +545,267 @@ draw_interval = 1
 # freqs, poincare_points = poincare_section(Bif_7_t, Bif_7_theta, Bif_7_thetadot, Bif_7_freq_start, Bif_7_freq_end, draw_interval,section_interval, phase_value,True)
 # plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
 
-#----Bifurcation 8 et 9-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_8.png"
+# #----Bifurcation 8 et 9-----#
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_8.png"
 
-freqs, poincare_points = poincare_section(Bif_8_t, Bif_8_theta, Bif_8_thetadot, Bif_8_freq_start, Bif_8_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+# freqs, poincare_points = poincare_section(Bif_8_t, Bif_8_theta, Bif_8_thetadot, Bif_8_freq_start, Bif_8_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
 
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_9.png"
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_9.png"
 
-freqs, poincare_points = poincare_section(Bif_9_t, Bif_9_theta, Bif_9_thetadot, Bif_9_freq_start, Bif_9_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
-
-
-#----Bifurcation 10 et 11-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_10.png"
-
-freqs, poincare_points = poincare_section(Bif_10_t, Bif_10_theta, Bif_10_thetadot, Bif_10_freq_start, Bif_10_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
-
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_11.png"
-
-freqs, poincare_points = poincare_section(Bif_11_t, Bif_11_theta, Bif_11_thetadot, Bif_11_freq_start, Bif_11_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+# freqs, poincare_points = poincare_section(Bif_9_t, Bif_9_theta, Bif_9_thetadot, Bif_9_freq_start, Bif_9_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
 
 
-#----Bifurcation 12-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_12.png"
+# #----Bifurcation 10 et 11-----#
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_10.png"
 
-freqs, poincare_points = poincare_section(Bif_12_t, Bif_12_theta, Bif_12_thetadot, Bif_12_freq_start, Bif_12_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+# freqs, poincare_points = poincare_section(Bif_10_t, Bif_10_theta, Bif_10_thetadot, Bif_10_freq_start, Bif_10_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
 
-#----Bifurcation 13-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_13.png"
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_11.png"
 
-freqs, poincare_points = poincare_section(Bif_13_t, Bif_13_theta, Bif_13_thetadot, Bif_13_freq_start, Bif_13_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+# freqs, poincare_points = poincare_section(Bif_11_t, Bif_11_theta, Bif_11_thetadot, Bif_11_freq_start, Bif_11_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+
+# #----Bifurcation 12-----#
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_12.png"
+
+# freqs, poincare_points = poincare_section(Bif_12_t, Bif_12_theta, Bif_12_thetadot, Bif_12_freq_start, Bif_12_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+# #----Bifurcation 13-----#
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_13.png"
+
+# freqs, poincare_points = poincare_section(Bif_13_t, Bif_13_theta, Bif_13_thetadot, Bif_13_freq_start, Bif_13_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
 
 #----Bifurcation 14-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_14.png"
+filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_14.pdf"
+filename_zoom = "TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_14_Zoom.pdf"
 
 freqs, poincare_points = poincare_section(Bif_14_t, Bif_14_theta, Bif_14_thetadot, Bif_14_freq_start, Bif_14_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+
+total_freq_range = 4.5
+total_time = Bif_14_t[-1] - Bif_14_t[0]
+
+#time at which freq is 4.5 Hz
+time_1 = Bif_14_t[0] + total_time * abs(4.5 - Bif_14_freq_start) / total_freq_range
+
+#time at which freq is 2Hz
+time_2 = Bif_14_t[0] + total_time * abs(1 - Bif_14_freq_start) / total_freq_range
+
+#time at which freq is 3Hz
+time_3 = Bif_14_t[0] + total_time * abs(3 - Bif_14_freq_start) / total_freq_range 
+
+
+#create a freq array
+freqs_not = np.linspace(Bif_14_freq_start, Bif_14_freq_end, len(Bif_14_theta))
+
+#get theta and thetadot values between time_1 and time_1 + 5 sec
+theta_1 = Bif_14_theta[(Bif_14_t >= time_1) & (Bif_14_t < time_1 + 5)]
+thetadot_1 = Bif_14_thetadot[(Bif_14_t >= time_1) & (Bif_14_t < time_1 + 5)]
+
+#get theta and thetadot values between a freq of 4.4 and 4.6 Hz
+theta_1_freq = Bif_14_theta[(freqs_not > 4.5) & (freqs_not < 4.6)]
+thetadot_1_freq = Bif_14_thetadot[(freqs_not > 4.5) & (freqs_not < 4.6)]
+
+#get theta and thetadot values between time_2 and time_2 + 5 sec
+theta_2 = Bif_14_theta[(Bif_14_t >= time_2) & (Bif_14_t < time_2 + 5)]
+thetadot_2 = Bif_14_thetadot[(Bif_14_t >= time_2) & (Bif_14_t < time_2 + 5)]
+
+#get theta and thetadot values between a freq of 2.9 and 3.1 Hz
+theta_2_freq = Bif_14_theta[(freqs_not > 3) & (freqs_not < 3.1)]
+thetadot_2_freq = Bif_14_thetadot[(freqs_not > 3) & (freqs_not < 3.1)]
+
+#get theta and thetadot values between time_3 and time_3 + 5 sec
+theta_3 = Bif_14_theta[(Bif_14_t >= time_3) & (Bif_14_t < time_3 + 5)]
+thetadot_3 = Bif_14_thetadot[(Bif_14_t >= time_3) & (Bif_14_t < time_3 + 5)]
+
+#get theta and thetadot values between a freq of 1.7 and 1.9 Hz
+theta_3_freq = Bif_14_theta[(freqs_not > 1.8) & (freqs_not < 1.9)]
+thetadot_3_freq = Bif_14_thetadot[(freqs_not > 1.8) & (freqs_not < 1.9)]
 
 
 
-#----Bifurcation 15-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_15.png"
+#bifurcation diagram
+ax,fig = u.create_figure_and_apply_format(figsize=(12, 6),xlabel=r"Frequency [Hz]", ylabel=r"$\dot{\theta}$ [V]")
 
-freqs, poincare_points = poincare_section(Bif_15_t, Bif_15_theta, Bif_15_thetadot, Bif_15_freq_start, Bif_15_freq_end, draw_interval,section_interval, phase_value,True)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+ax.scatter(freqs,poincare_points,color="black", marker="x", s=3.5)
+
+#change the size of the fig
+fig.set_size_inches(8, 6)
+ax.set_xlim(3.6,4.4)
+ax.set_ylim(-0.15,-0.025)
+
+theta_4 = Bif_14_theta[(freqs_not > 3.96) & (freqs_not < 3.97)]
+thetadot_4 = Bif_14_thetadot[(freqs_not > 3.96) & (freqs_not < 3.97)]
+
+ax.scatter(freqs[(freqs > 3.96) & (freqs < 3.97)],poincare_points[(freqs > 3.96) & (freqs < 3.97)],color="red", marker="x", s=6)
+
+rect = Rectangle((3.95,-0.125),0.03,0.085,linewidth=1,edgecolor='black',facecolor='none')
+ax.add_patch(rect)
+
+#draw an arrow from the rectangle to the first phase space
+arrow_props = dict(arrowstyle="->", color='black',zorder=10,linewidth=2)
+arrow = ConnectionPatch((3.98, -0.08), (4.04, -0.08), "data", "data", **arrow_props)
+ax.add_artist(arrow)
+
+axin = ax.inset_axes([0.55, 0.35, 0.4, 0.4])
+axin.plot(theta_4, thetadot_4, color="red",linewidth=0.5)
+axin.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelbottom=False, labelleft=False)
+
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig(filename_zoom)
 
 
-#----Bifurcation 16-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_16.png"
+#re scatter points between 1.7 and 1.9 Hz
+ax.scatter(freqs[(freqs > 1.7) & (freqs < 1.9)],poincare_points[(freqs > 1.7) & (freqs < 1.9)],color="indigo", marker="x", s=3.5)
 
-freqs, poincare_points = poincare_section(Bif_16_t, Bif_16_theta, Bif_16_thetadot, Bif_16_freq_start, Bif_16_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+#re scatter points between 2.9 and 3.1 Hz
+ax.scatter(freqs[(freqs > 2.9) & (freqs < 3.1)],poincare_points[(freqs > 2.9) & (freqs < 3.1)],color="blue", marker="x", s=3.5)
 
-#----Bifurcation 17-----#
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_17.png"
+#re scatter points between 4.4 and 4.6 Hz
+ax.scatter(freqs[(freqs > 4.4) & (freqs < 4.6)],poincare_points[(freqs > 4.4) & (freqs < 4.6)],color="red", marker="x", s=3.5)
 
-freqs, poincare_points = poincare_section(Bif_17_t, Bif_17_theta, Bif_17_thetadot, Bif_17_freq_start, Bif_17_freq_end, draw_interval,section_interval, phase_value)
-plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+# #plot the phase space of theta_1 and thetadot_1 diretctly on the bifurcation diagram, in a subplot
+# axin = ax.inset_axes([0.45, 0.05, 0.25, 0.25])
+# axin.plot(theta_1, thetadot_1, color="red")
+# axin.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelbottom=False, labelleft=False)
+# # axin.set_xlabel(r"$\theta$ [V]")
+# # axin.set_ylabel(r"$\dot{\theta}$ [V]")
+
+# #plot the phase space of theta_2 and thetadot_2 diretctly on the bifurcation diagram, in a subplot
+# axin = ax.inset_axes([0.05, 0.05, 0.25, 0.25])
+# axin.plot(theta_2, thetadot_2, color="red")
+# axin.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelbottom=False, labelleft=False)
+# # axin.set_xlabel(r"$\theta$ [V]")
+# # axin.set_ylabel(r"$\dot{\theta}$ [V]")
+
+# #plot the phase space of theta_3 and thetadot_3 diretctly on the bifurcation diagram, in a subplot
+# axin = ax.inset_axes([0.45, 0.7, 0.25, 0.25])
+# axin.plot(theta_3, thetadot_3, color="red")
+# axin.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelbottom=False, labelleft=False)
+# # axin.set_xlabel(r"$\theta$ [V]")
+# # axin.set_ylabel(r"$\dot{\theta}$ [V]")
+
+# #plot a rectangle at the center of the bifurcation diagram
+# # rect = Rectangle((4.4,-0.12),0.2,0.08,linewidth=2,edgecolor='black',facecolor='none')
+# # ax.add_patch(rect)
+# #draw an arrow from the rectangle to the first phase space
+# arrow_props = dict(arrowstyle="->", color='black',zorder=10,linewidth=2) 
+# arrow = ConnectionPatch((4.4, -0.09), (3.64, -0.11), "data", "data", **arrow_props)
+# ax.add_artist(arrow)
+
+# # #plot a rectangle at the center of the bifurcation diagram
+# # rect = Rectangle((2.9,-0.08),0.2,0.02,linewidth=2,edgecolor='black',facecolor='none')
+# # ax.add_patch(rect)
+# #draw an arrow from the rectangle to the first phase space
+# arrow_props = dict(arrowstyle="->", color='black',zorder=10,linewidth=2) 
+# arrow = ConnectionPatch((2.9, -0.06), (2.8, -0.042), "data", "data", **arrow_props)
+# ax.add_artist(arrow)
+
+# # #plot a rectangle at the center of the bifurcation diagram
+# # rect = Rectangle((1.7,-0.12),0.2,0.1,linewidth=2,edgecolor='black',facecolor='none')
+# # ax.add_patch(rect)
+# #draw an arrow from the rectangle to the first phase space
+# arrow_props = dict(arrowstyle="->", color='black',zorder=10,linewidth=2) 
+# arrow = ConnectionPatch((1.7, -0.07), (1, -0.0975), "data", "data", **arrow_props)
+# ax.add_artist(arrow)
+
+
+#version2
+#plot the phase space of theta_1 and thetadot_1 diretctly on the bifurcation diagram, in a subplot
+axin = ax.inset_axes([0.65, 0.7, 0.25, 0.25])
+axin.plot(theta_1_freq, thetadot_1_freq, color="red")
+axin.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelbottom=False, labelleft=False)
+
+#plot the phase space of theta_2 and thetadot_2 diretctly on the bifurcation diagram, in a subplot
+axin = ax.inset_axes([0.05, 0.7, 0.25, 0.25])
+axin.plot(theta_3_freq, thetadot_3_freq, color="indigo")
+axin.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelbottom=False, labelleft=False)
+
+#plot the phase space of theta_3 and thetadot_3 diretctly on the bifurcation diagram, in a subplot
+axin = ax.inset_axes([0.35, 0.7, 0.25, 0.25])
+axin.plot(theta_2_freq, thetadot_2_freq, color="blue")
+axin.tick_params(axis='both', which='both', bottom=False, top=False, left=False, right=False, labelbottom=False, labelleft=False)
+
+
+#draw an arrow from the rectangle to the first phase space
+arrow_props = dict(arrowstyle="->", color='black',zorder=10,linewidth=2) 
+arrow = ConnectionPatch((4.4, -0.075), (4, -0.008), "data", "data", **arrow_props)
+ax.add_artist(arrow)
+
+#draw an arrow from the rectangle to the first phase space
+arrow_props = dict(arrowstyle="->", color='black',zorder=10,linewidth=2) 
+arrow = ConnectionPatch((3, -0.065), (2.5, -0.008), "data", "data", **arrow_props)
+ax.add_artist(arrow)
+
+#draw an arrow from the rectangle to the first phase space
+arrow_props = dict(arrowstyle="->", color='black',zorder=10,linewidth=2) 
+arrow = ConnectionPatch((1.7, -0.07), (1, -0.008), "data", "data", **arrow_props)
+ax.add_artist(arrow)
+
+
+
+
+
+# ax.vlines(4.4,-0.14,0.05,linestyle = "--",color="black")
+# ax.vlines(4.6,-0.14,0.05,linestyle = "--",color="black")
+
+# ax.vlines(2.9,-0.14,0.05,linestyle = "--",color="black")
+# ax.vlines(3.1,-0.14,0.05,linestyle = "--",color="black")
+
+# ax.vlines(1.7,-0.14,0.05,linestyle = "--",color="black")
+# ax.vlines(1.9,-0.14,0.05,linestyle = "--",color="black")
+
+#replace the vlines by rectangles
+rect = Rectangle((4.4,-0.125),0.2,0.1,linewidth=2,edgecolor='black',facecolor='none')
+ax.add_patch(rect)
+
+rect = Rectangle((2.9,-0.08),0.2,0.015,linewidth=2,edgecolor='black',facecolor='none')
+ax.add_patch(rect)
+
+rect = Rectangle((1.7,-0.125),0.2,0.125,linewidth=2,edgecolor='black',facecolor='none')
+ax.add_patch(rect)
+
+
+
+
+ax.set_xlim(0,5.2)
+# ax.set_ylim(-0.14,0.0)
+#version2
+ax.set_ylim(-0.14,0.05)
+
+u.set_legend_properties(ax,fontsize=18)
+fig.savefig(filename)
+
+
+# #----Bifurcation 15-----#
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_15.png"
+
+# freqs, poincare_points = poincare_section(Bif_15_t, Bif_15_theta, Bif_15_thetadot, Bif_15_freq_start, Bif_15_freq_end, draw_interval,section_interval, phase_value,True)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+
+# #----Bifurcation 16-----#
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_16.png"
+
+# freqs, poincare_points = poincare_section(Bif_16_t, Bif_16_theta, Bif_16_thetadot, Bif_16_freq_start, Bif_16_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
+
+# #----Bifurcation 17-----#
+# filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_17.png"
+
+# freqs, poincare_points = poincare_section(Bif_17_t, Bif_17_theta, Bif_17_thetadot, Bif_17_freq_start, Bif_17_freq_end, draw_interval,section_interval, phase_value)
+# plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
 
 
 #BIIFURCATION 18
-filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_18.png"
+filename="TP_Chaos/Figures/Moteur_Dipolaire_Bifurcation_18.pdf"
 
 freqs, poincare_points = poincare_section(Bif_18_t, Bif_18_theta, Bif_18_thetadot, Bif_18_freq_start, Bif_18_freq_end, draw_interval,section_interval, phase_value)
 plot_bifurcation_diagram(freqs, poincare_points, "Frequency [Hz]", r"$\dot{\theta}$ [V]", filename, figsize=(10, 6))
