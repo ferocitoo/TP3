@@ -378,14 +378,14 @@ def save_pdf(fig,pdf_name) :
 def x_axis_divide(ax,divide = 1000) : 
     
     def divide_by(x, pos):
-        return f'{x/divide:.1f}'
+        return f'{x/divide:.2f}'
     formatter = FuncFormatter(divide_by)
 
     ax.xaxis.set_major_formatter(formatter)
         
 def y_axis_divide(ax,divide = 1000) : 
     def divide_by(y,pos):
-        return f'{y/divide:.1f}'
+        return f'{y/divide:.2f}'
     formatter = FuncFormatter(divide_by)
 
     ax.yaxis.set_major_formatter(formatter)
