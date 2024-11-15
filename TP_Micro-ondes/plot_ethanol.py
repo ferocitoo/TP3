@@ -331,61 +331,10 @@ def cole_cole(eps_R, R, eps_R_0) :
 
 
 
-eps_s_array = []
-deps_s_array = []
-eps_inf_array = []
-deps_inf_array = []
-
-
-
-# Cole Cole plot
-for T in Temperatures: 
-
-    freq = Ethanol_freq[Temperatures.index(T)].to_numpy()
-    EpsR = Ethanol_EpsR[Temperatures.index(T)].to_numpy()
-    EpsI = Ethanol_EpsI[Temperatures.index(T)].to_numpy()
-
-    xlabel = r"$\epsilon_r^{'}$"
-    ylabel = r"$\epsilon_r^{''}$"
-    ax, fig = u.create_figure_and_apply_format((10, 6), xlabel=xlabel, ylabel=ylabel)
-    ax.scatter(EpsR, EpsI, label=f"Measurements for T = {T}°C", marker='x', s=10, color='blue')
-    
-    
-    popt, pcov = curve_fit(cole_cole, EpsR, EpsI, p0=[13,17],maxfev=10000000)
-    R,eps_R_0 = popt
-    dR,deps_R_0 = np.sqrt(np.diag(pcov))
-    
-    
-    eps_s = eps_R_0 - R
-    deps_s = dR + deps_R_0
-    eps_inf = eps_R_0 + R
-    deps_inf = dR + deps_R_0
-    
-    eps_s_array.append(eps_s)
-    deps_s_array.append(deps_s)
-    eps_inf_array.append(eps_inf)
-    deps_inf_array.append(deps_inf)
-    
-    ax.vlines(eps_s,0,30,linestyles='--',label=rf'$\epsilon_s = {eps_s:.2f} \pm {deps_s:.2f}$',color = "black")
-    ax.vlines(eps_inf,0,30,linestyles='-.',label=rf'$\epsilon_\infty = {eps_inf:.1f} \pm 0.1$' ,color = "black")
-    
-    x = np.linspace(0, 35, 1000)
-    y = cole_cole(x, R, eps_R_0)
-    ax.plot(x, y, color='red', linestyle='--', label = r"Fit : $\epsilon_r^{''} = \sqrt{R^2 - (\epsilon_r^' - \epsilon_\infty)^2}$")
-
-    
-    ax.set_xlim(0, 35)
-    ax.set_ylim(-5,20)
-    
-    #set the axis as equal scale
-    ax.set_aspect('equal')
-    
-    u.set_legend_properties(ax, fontsize=20)
-    plt.tight_layout()
-    fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_Cole_Cole_{T}.pdf")
-
-
-
+# eps_s_array = []
+# deps_s_array = []
+# eps_inf_array = []
+# deps_inf_array = []
 
 # for i in range(len(Temperatures)):
 #     freq = Propanol_freq[i].to_numpy()
@@ -397,17 +346,25 @@ maxfreqs = []
 
 taos = []
 dtaos = []
+eps_s_array = []
+deps_s_array = []
+eps_inf_array = []
+deps_inf_array = []
 
 for T in Temperatures:
     freq = Ethanol_freq[Temperatures.index(T)].to_numpy()
     EpsI = Ethanol_EpsI[Temperatures.index(T)].to_numpy()
     
-    eps_inf = eps_inf_array[Temperatures.index(T)]
-    eps_s = eps_s_array[Temperatures.index(T)]
 
-    popt, pcov = curve_fit(lambda f, tao : epsI(f, eps_inf, eps_s, tao), freq, EpsI, p0=[-0.1],bounds=([-np.inf], [0]))
-    tao = popt
-    dtao = np.sqrt(np.diag(pcov))
+    popt, pcov = curve_fit(epsI, freq, EpsI, p0=[3,16,0], bounds=([0,15,-np.inf],[8,30,np.inf]))
+    eps_inf,eps_s,tao = popt
+    deps_inf,deps_s,dtao = np.sqrt(np.diag(pcov))
+    
+    eps_s_array.append(eps_s)
+    deps_s_array.append(deps_s)
+    
+    eps_inf_array.append(eps_inf)
+    deps_inf_array.append(deps_inf)
     
     taos.append(tao)
     dtaos.append(dtao)
@@ -419,7 +376,75 @@ for T in Temperatures:
     maxfreq = freq[np.argmax(epsI(freq, eps_inf, eps_s, tao))]
     maxfreqs.append(maxfreq)
 
+taos = np.array(taos)
+dtaos = np.array(dtaos)
+eps_s_array = np.array(eps_s_array)
+deps_s_array = np.array(deps_s_array)
+eps_inf_array = np.array(eps_inf_array)
+deps_inf_array = np.array(deps_inf_array)
+
 print(taos)
+print(eps_inf_array)
+print(eps_s_array)
+
+# Cole Cole plot
+xlabel = r"$\epsilon_r^{'}$"
+ylabel = r"$\epsilon_r^{''}$"
+ax, fig = u.create_figure_and_apply_format((10, 6), xlabel=xlabel, ylabel=ylabel)
+for i in range(len(Temperatures)):
+    if i%3 == 0:
+        T = Temperatures[i]
+        freq = Ethanol_freq[i].to_numpy()
+        EpsR = Ethanol_EpsR[i].to_numpy()
+        EpsI = Ethanol_EpsI[i].to_numpy()
+
+        # ax, fig = u.create_figure_and_apply_format((10, 6), xlabel=xlabel, ylabel=ylabel)
+        ax.scatter(EpsR, EpsI, label=f"T = {T}°C", marker='x', s=10)
+        
+        
+        # popt, pcov = curve_fit(cole_cole, EpsR, EpsI, p0=[20,18],maxfev=1000000)
+        # R,eps_R_0 = popt
+        # dR,deps_R_0 = np.sqrt(np.diag(pcov))
+        
+        
+        # eps_s = eps_R_0 - R
+        # deps_s = dR + deps_R_0
+        # eps_inf = eps_R_0 + R
+        # deps_inf = dR + deps_R_0
+        
+        # eps_s_array.append(eps_s)
+        # deps_s_array.append(deps_s)
+        # eps_inf_array.append(eps_inf)
+        # deps_inf_array.append(deps_inf)
+        
+        eps_s = eps_s_array[i]
+        deps_s = deps_s_array[i]
+        
+        eps_inf = eps_inf_array[i]
+        deps_inf = deps_inf_array[i]
+        
+        # ax.vlines(eps_s,0,30,linestyles='--',label=rf'$\epsilon_s = {eps_s:.2f} \pm {deps_s:.2f}$',color = "black")
+        # ax.vlines(eps_inf,0,30,linestyles='-.',label=rf'$\epsilon_\infty = {eps_inf:.1f} \pm 0.1$' ,color = "black")
+        
+        
+        
+        # x = np.linspace(0, 35, 1000)
+        # y = cole_cole(x, R, eps_R_0)
+        # ax.plot(x, y, color='red', linestyle='--', label = r"Fit : $\epsilon_r^{''} = \sqrt{R^2 - (\epsilon_r^' - \epsilon_\infty)^2}$")
+
+    
+ax.set_xlim(0, 40)
+ax.set_ylim(-5,20)
+
+#set the axis as equal scale
+ax.set_aspect('equal')
+
+u.set_legend_properties(ax, fontsize=20)
+plt.tight_layout()
+fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_Cole_Cole.pdf")
+
+
+
 
 #freq vs EpsR and EpsI
 xlabel = "Frequency [MHz]"
@@ -427,13 +452,13 @@ ylabel = r"$\epsilon_r^{''}$"
 
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-for T in Temperatures:
-    
-    freq = Ethanol_freq[Temperatures.index(T)].to_numpy()
-    EpsI = Ethanol_EpsI[Temperatures.index(T)].to_numpy()
+for i in range(len(Temperatures)):   
+    if i%3==0 :  
+        freq = Ethanol_freq[i].to_numpy()
+        EpsI = Ethanol_EpsI[i].to_numpy()
 
-    ax.scatter(freq, EpsI, label=f"{T}°C", marker = 'x',s = 5)
-    
+        ax.scatter(freq, EpsI, label=f"{Temperatures[i]}°C", marker = 'x',s = 5)
+        
     
 u.set_legend_properties(ax,fontsize=20)
 
@@ -446,13 +471,14 @@ ylabel = r"$\epsilon_r^{'}$"
 
 ax,fig = u.create_figure_and_apply_format((8,8),xlabel=xlabel, ylabel=ylabel)
 
-for T in Temperatures:
+for i in range(len(Temperatures)):
     
-    freq = Ethanol_freq[Temperatures.index(T)].to_numpy()
-    EpsR = Ethanol_EpsR[Temperatures.index(T)].to_numpy()
+    if i%2 == 0 : 
+        freq = Ethanol_freq[i].to_numpy()
+        EpsR = Ethanol_EpsR[i].to_numpy()
 
-    ax.scatter(freq, EpsR, label=f"{T}°C", marker = 'x',s = 5)
-    
+        ax.scatter(freq, EpsR, label=f"{Temperatures[i]}°C", marker = 'x',s = 5)
+        
 u.set_legend_properties(ax,fontsize=20)
 
 plt.tight_layout()
@@ -460,19 +486,20 @@ plt.tight_layout()
 fig.savefig("TP_Micro-ondes/Figures/Ethanol_freq_vs_EpsR.pdf")
 
 #freq vs EpsR and EpsI with fit
-for T in Temperatures:
-    freq = Ethanol_freq[Temperatures.index(T)].to_numpy()
-    EpsR = Ethanol_EpsR[Temperatures.index(T)].to_numpy()
-    EpsI = Ethanol_EpsI[Temperatures.index(T)].to_numpy()
+for i in range(len(Temperatures)):
+    T = Temperatures[i]
+    freq = Ethanol_freq[i].to_numpy()
+    EpsR = Ethanol_EpsR[i].to_numpy()
+    EpsI = Ethanol_EpsI[i].to_numpy()
 
-    eps_s = eps_s_array[Temperatures.index(T)]
-    eps_inf = eps_inf_array[Temperatures.index(T)]
-    tao = taos[Temperatures.index(T)]
+    eps_s = eps_s_array[i]
+    eps_inf = eps_inf_array[i]
+    tao = taos[i]
 
     # popt_R, pcov_R = curve_fit(epsR, freq, EpsR, p0=[1, 1, 1])
     # eps_inf_R, eps_s_R, tao_R = popt_R
     f_R = np.linspace(50, 3000, 1000)
-    y_R = epsR(f_R, eps_s, eps_inf, tao)
+    y_R = epsR(f_R, eps_inf, eps_s, tao)
 
     # popt_I, pcov_I = curve_fit(epsI, freq, EpsI, p0=[1, 1, 1])
     # eps_inf_I, eps_s_I, tao_I = popt_I
@@ -484,10 +511,13 @@ for T in Temperatures:
     xlabel = "Frequency [MHz]"
     ylabel = r"$\epsilon_r$"
     ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
+    
     ax.scatter(freq, EpsR, label=f"{T}°C $\epsilon_r'$ Data", marker='x', s=10, color = 'blue')
     ax.plot(f_R, y_R, label=f"{T}°C $\epsilon_r'$ Fit", color = 'red', linestyle="--")
+    
     ax.scatter(freq, EpsI, label=f"{T}°C $\epsilon_r''$ Data", marker='x', s=10, color = 'orange')
     ax.plot(f_I, y_I, label=f"{T}°C $\epsilon_r''$ Fit", color = 'black', linestyle="--")
+    
     u.set_legend_properties(ax, fontsize=20)
     plt.tight_layout()
     fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_freq_vs_Eps_{T}.pdf")
@@ -504,6 +534,7 @@ ax,fig = u.create_figure_and_apply_format((8,6),xlabel=r"$1/T [mK^{-1}]$", ylabe
 
 T = np.array(Temperatures[8:]) + 273.15  
 w = 2*np.pi*np.array(maxfreqs[8:])
+print(Temperatures)
 
 dT = 1
 dTs = dT * 1/T**2
@@ -531,8 +562,8 @@ print(f"Ea = {Ea} \pm {dslope*k/1.60217662e-19} ")
 # ax.set_xlim(3.3e-3,3.63e-3)
 # ax.set_ylim(8,8.8)
 
-ax.set_xlim(3.25e-3,3.75e-3)
-ax.set_ylim(7.9,8.8)
+ax.set_xlim(3e-3,3.75e-3)
+ax.set_ylim(7.5,10)
 
 u.set_legend_properties(ax,fontsize=25)
 
@@ -574,8 +605,8 @@ print(f"Ea = {Ea} \pm {dslope*k/1.60217662e-19} ")
 
 u.set_legend_properties(ax,fontsize=25)
 
-ax.set_xlim(3.7e-3,4e-3)
-ax.set_ylim(7.5,8.2)
+ax.set_xlim(3.6e-3,4.2e-3)
+ax.set_ylim(7.5,9)
 
 plt.tight_layout()
 
