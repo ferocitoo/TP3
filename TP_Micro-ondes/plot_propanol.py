@@ -316,33 +316,33 @@ plt.tight_layout()
 fig.savefig("TP_Micro-ondes/Figures/Propanol_freq_vs_EpsR.pdf")
 
 #freq vs EpsR and EpsI with fit
-T = Temperatures[8]
+for T in Temperatures:
 
-freq = Propanol_freq[Temperatures.index(T)].to_numpy()
-EpsR = Propanol_EpsR[Temperatures.index(T)].to_numpy()
-EpsI = Propanol_EpsI[Temperatures.index(T)].to_numpy()
+    freq = Propanol_freq[Temperatures.index(T)].to_numpy()
+    EpsR = Propanol_EpsR[Temperatures.index(T)].to_numpy()
+    EpsI = Propanol_EpsI[Temperatures.index(T)].to_numpy()
 
-popt_R, pcov_R = curve_fit(epsR, freq, EpsR, p0=[1, 1, 1])
-eps_inf_R, eps_s_R, tao_R = popt_R
-f_R = np.linspace(50, 3000, 1000)
-y_R = epsR(f_R, eps_inf_R, eps_s_R, tao_R)
+    popt_R, pcov_R = curve_fit(epsR, freq, EpsR, p0=[1, 1, 1])
+    eps_inf_R, eps_s_R, tao_R = popt_R
+    f_R = np.linspace(50, 3000, 1000)
+    y_R = epsR(f_R, eps_inf_R, eps_s_R, tao_R)
 
-popt_I, pcov_I = curve_fit(epsI, freq, EpsI, p0=[1, 1, 1])
-eps_inf_I, eps_s_I, tao_I = popt_I
-f_I = np.linspace(50, 3000, 1000)
-y_I = epsI(f_I, eps_inf_I, eps_s_I, tao_I)
+    popt_I, pcov_I = curve_fit(epsI, freq, EpsI, p0=[1, 1, 1])
+    eps_inf_I, eps_s_I, tao_I = popt_I
+    f_I = np.linspace(50, 3000, 1000)
+    y_I = epsI(f_I, eps_inf_I, eps_s_I, tao_I)
 
-# Plot EpsR and EpsI on the same graph
-xlabel = "Frequency [MHz]"
-ylabel = r"$\epsilon_r$"
-ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
-ax.scatter(freq, EpsR, label=f"{T}°C $\epsilon_r'$ Data", marker='x', s=10)
-ax.plot(f_R, y_R, label=f"{T}°C $\epsilon_r'$ Fit", color = 'red', linestyle="--")
-ax.scatter(freq, EpsI, label=f"{T}°C $\epsilon_r''$ Data", marker='x', s=10)
-ax.plot(f_I, y_I, label=f"{T}°C $\epsilon_r''$ Fit", color = 'black', linestyle="--")
-u.set_legend_properties(ax, fontsize=20)
-plt.tight_layout()
-fig.savefig(f"TP_Micro-ondes/Figures/Propanol_freq_vs_Eps_{T}.pdf")
+    # Plot EpsR and EpsI on the same graph
+    xlabel = "Frequency [MHz]"
+    ylabel = r"$\epsilon_r$"
+    ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
+    ax.scatter(freq, EpsR, label=f"{T}°C $\epsilon_r'$ Data", marker='x', s=10)
+    ax.plot(f_R, y_R, label=f"{T}°C $\epsilon_r'$ Fit", color = 'red', linestyle="--")
+    ax.scatter(freq, EpsI, label=f"{T}°C $\epsilon_r''$ Data", marker='x', s=10)
+    ax.plot(f_I, y_I, label=f"{T}°C $\epsilon_r''$ Fit", color = 'black', linestyle="--")
+    u.set_legend_properties(ax, fontsize=20)
+    plt.tight_layout()
+    fig.savefig(f"TP_Micro-ondes/Figures/Propanol_freq_vs_Eps_{T}.pdf")
 
 #Energy of activation
 
