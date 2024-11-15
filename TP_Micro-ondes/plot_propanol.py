@@ -410,7 +410,7 @@ ax,fig = u.create_figure_and_apply_format((8,6),xlabel=r"$1/T [K^{-1}]$", ylabel
 
 ax.errorbar(1/T,np.log(w),xerr=dts,label="Data",marker="^",color = "blue",linestyle="None",markersize = 10, capsize = 5, capthick = 1)
 
-popt, pcov = curve_fit(linear, 1/T, np.log(w))
+popt, pcov = curve_fit(linear, 1/T, np.log(w), )
 slope, intercept = popt
 dslope, dintercept = np.sqrt(np.diag(pcov))
 x = np.linspace(1/400,1/200,100)
