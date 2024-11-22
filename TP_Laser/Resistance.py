@@ -75,3 +75,61 @@ fig.savefig("TP_Laser/Figures/Resistance.pdf")
 
 # Résistance externe
 
+# Données
+
+# 100
+R_100 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/R_ext_100.csv", delimiter="\t", decimal=".")
+R_100_e = R_100.iloc[:,0]
+R_100_s = R_100.iloc[:,1]
+
+# 200
+R_200 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/R_ext_200.csv", delimiter="\t", decimal=".")
+R_200_e = R_200.iloc[:,0]
+R_200_s = R_200.iloc[:,1]
+
+# 400
+R_400 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/R_ext_400.csv", delimiter="\t", decimal=".")
+R_400_e = R_400.iloc[:,0]
+R_400_s = R_400.iloc[:,1]
+
+# 600
+R_600 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/R_ext_600.csv", delimiter="\t", decimal=".")
+R_600_e = R_600.iloc[:,0]
+R_600_s = R_600.iloc[:,1]
+
+# 800
+R_800 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/R_ext_800.csv", delimiter="\t", decimal=".")
+R_800_e = R_800.iloc[:,0]
+R_800_s = R_800.iloc[:,1]
+
+# 900
+R_900 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/R_ext_900.csv", delimiter="\t", decimal=".")
+R_900_e = R_900.iloc[:,0]
+R_900_s = R_900.iloc[:,1]
+
+# 1000
+R_1000 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/R_ext_1000.csv", delimiter="\t", decimal=".")
+R_1000_e = R_1000.iloc[:,0]
+R_1000_s = R_1000.iloc[:,1]
+
+R_ext = [100, 200, 400, 600, 800, 900, 1000]
+R_ext_e = [R_100_e, R_200_e, R_400_e, R_600_e, R_800_e, R_900_e, R_1000_e]
+R_ext_s = [R_100_s, R_200_s, R_400_s, R_600_s, R_800_s, R_900_s, R_1000_s]
+
+
+# Plot
+
+xlabel = r"$V_{in}$ [V]"
+ylabel = r"$V_{out}$ [V]"
+
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+for R in R_ext:
+    i = R_ext.index(R)
+    ax.plot(R_ext_e[i], R_ext_s[i], label=f"R = {R} $\Omega$")
+
+u.set_legend_properties(ax,fontsize=20)
+
+plt.tight_layout()
+
+fig.savefig("TP_Laser/Figures/R_ext.pdf")
