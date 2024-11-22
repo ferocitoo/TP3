@@ -46,7 +46,7 @@ dI_A = dI*1e-3
 R = U/I_A
 
 # Incertitude sur R
-dR = (1/I_A)*(dU) + (-U/(I_A**2))*dI_A
+dR = np.abs((1/I_A))*dU + np.abs((-U/(I_A**2)))*dI_A
 
 # Plot U en fonction de I
 
@@ -63,7 +63,7 @@ print(f"{a*1e3} +- {da*1e3}")
 
 I_fit = np.linspace(min(I), max(I), 100)
 U_fit = linear(I_fit, a, b)
-ax.plot(I_fit, U_fit, color='red', label=f"Fit: U = {a:.2f} I + {b:.2f}", linestyle='--')
+ax.plot(I_fit, U_fit, color='red', label=rf"Fit: $U = {a:.2f} I + ({b:.2f})$", linestyle='--')
 
 ax.scatter(I, U, marker='x', label=r"U(I)")
 
@@ -126,7 +126,7 @@ ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
 for R in R_ext:
     i = R_ext.index(R)
-    ax.plot(R_ext_e[i], R_ext_s[i], label=f"R = {R} $\Omega$")
+    ax.plot(R_ext_e[i], R_ext_s[i], label=rf"$R_{{ext}}$ = {R} $\Omega$")
 
 u.set_legend_properties(ax,fontsize=20)
 

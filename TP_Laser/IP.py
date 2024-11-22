@@ -34,6 +34,8 @@ dR_ext = 1
 
 alpha = 1.17*1e-1
 
+dT = 0.2
+
 # Importer les données
 
 # 9.4
@@ -105,7 +107,20 @@ Ts = [9.4, 12.5, 15.2, 17.7, 20.2, 22.5, 25.6, 27.8, 30, 32.5, 35, 37.5, 40.1]
 T_Is = [T_9_4_I, T_12_5_I, T_15_2_I, T_17_7_I, T_20_2_I, T_22_5_I, T_25_6_I, T_27_8_I, T_30_I, T_32_5_I, T_35_I, T_37_5_I, T_40_1_I]
 T_Ps = [T_9_4_P, T_12_5_P, T_15_2_P, T_17_7_P, T_20_2_P, T_22_5_P, T_25_6_P, T_27_8_P, T_30_P, T_32_5_P, T_35_P, T_37_5_P, T_40_1_P]
 
+T_K = [T + 273.15 for T in Ts]
+
 # Plot
+
+def linear_fit(x, a, b):
+    return a * x + b
+
+def find_intersection(popt_1):
+    a1, b1 = popt_1
+    x_intersect = (b1) / (-a1)
+    y_intersect = a1 * x_intersect + b1
+    return x_intersect, y_intersect
+
+# Plot de toutes les courbes
 
 xlabel = r"$I$ (A)"
 ylabel = r"$P$ (W)"
@@ -116,8 +131,199 @@ for T in Ts:
     i = Ts.index(T)
     ax.plot(T_Is[i], T_Ps[i], label=f"T = {T} °C")
 
+u.y_axis_divide(ax, 0.0001)
+ax.annotate("1e$-4$", xy=(0.0, 1.03), xycoords='axes fraction', fontsize=10, ha='left', va='top')
+
 u.set_legend_properties(ax,fontsize=20)
 
 plt.tight_layout()
 
 fig.savefig("TP_Laser/Figures/IP_T.pdf")
+
+# Plot chacune avec les fits
+
+I_th = []
+dI_ths = []
+dI_ths_log = []
+
+T = Ts[0]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[130:150], P[130:150])
+P_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
+ax.plot(I, P, label=f"T = {T} °C")
+ax.hlines(0, min(I), max(I), color='r', linestyle='--', label='P = 0')
+ax.plot(I, P_fit, color = 'g', linestyle = '--', label='fit')
+ax.plot(intersection[0], intersection[1], 'bx', label=r'$I_{th}$')
+
+u.y_axis_divide(ax, 0.0001)
+ax.annotate("1e$-4$", xy=(0.0, 1.03), xycoords='axes fraction', fontsize=10, ha='left', va='top')
+
+ax.set_ylim(min(P) - 2*1e-5, max(P) + 2*1e-5)
+
+u.set_legend_properties(ax, fontsize=20)
+plt.tight_layout()
+fig.savefig(f"TP_Laser/Figures/IP_T_{T}_fit.pdf")
+
+T = Ts[1]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[150:170], P[150:170])
+P_2_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+T = Ts[2]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[140:150], P[140:150])
+P_2_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+T = Ts[3]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[190:200], P[190:200])
+P_2_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+T = Ts[4]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[170:180], P[170:180])
+P_2_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+T = Ts[5]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[220:230], P[220:230])
+P_2_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+T = Ts[6]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[240:250], P[240:250])
+P_2_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+T = Ts[7]
+i = Ts.index(T)
+I = T_Is[i]
+P = T_Ps[i]
+
+popt_2, pcov2 = curve_fit(linear_fit, I[280:290], P[280:290])
+P_2_fit = linear_fit(I, *popt_2)
+
+a, b = popt_2
+da, db = np.sqrt(np.diag(pcov2))
+
+dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
+
+intersection = find_intersection(popt_2)
+I_th.append(intersection[0])
+dI_ths.append(dI_th)
+dI_ths_log.append(np.abs((dI_th/intersection[0])))
+
+# Plot de log I_th en fonction de T
+
+xlabel = r"$T$ (K)"
+ylabel = r"$\log(I_{th})$"
+
+ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
+
+popt, pcov = curve_fit(linear_fit, T_K[:len(I_th)], np.log(I_th))
+a, b = popt
+da, db = np.sqrt(np.diag(pcov))
+
+T_fit = np.linspace(min(T_K[:len(I_th)]), max(T_K[:len(I_th)]), 100)
+I_th_log_fit = linear_fit(T_fit, a, b)
+
+ax.plot(T_fit, I_th_log_fit, color='red', linestyle='--', label=rf"Fit: $\log(I_{{th}}) = {a:.2f} T + ({b:.2f})$")
+ax.errorbar(T_K[:len(I_th)], np.log(I_th), xerr=dT, yerr=dI_ths_log, marker='x', linestyle='', label=r"$\log(I_{th})$")
+
+u.set_legend_properties(ax,fontsize=20)
+
+plt.tight_layout()
+
+fig.savefig("TP_Laser/Figures/I_th_T.pdf")
