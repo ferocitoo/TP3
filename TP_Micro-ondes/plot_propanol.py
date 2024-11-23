@@ -288,12 +288,13 @@ ylabel = r"$\epsilon_r^{''}$"
 
 ax,fig = u.create_figure_and_apply_format((8,8),xlabel=xlabel, ylabel=ylabel)
 
-for T in Temperatures:
-    
-    freq = Propanol_freq[Temperatures.index(T)].to_numpy()
-    EpsI = Propanol_EpsI[Temperatures.index(T)].to_numpy()
+for i in range(len(Temperatures)):
+    T = Temperatures[i]
+    if i % 2 == 0:
+        freq = Propanol_freq[i].to_numpy()
+        EpsI = Propanol_EpsI[i].to_numpy()
 
-    ax.scatter(freq, EpsI, label=f"{T}°C", marker = 'x',s = 5)
+        ax.plot(freq, EpsI, label=f"{T}°C")
     
 u.set_legend_properties(ax,fontsize=20)
 
@@ -306,12 +307,13 @@ ylabel = r"$\epsilon_r^{'}$"
 
 ax,fig = u.create_figure_and_apply_format((8,8),xlabel=xlabel, ylabel=ylabel)
 
-for T in Temperatures:
-    
-    freq = Propanol_freq[Temperatures.index(T)].to_numpy()
-    EpsR = Propanol_EpsR[Temperatures.index(T)].to_numpy()
+for i in range(len(Temperatures)):
+    T = Temperatures[i]
+    if i % 2 == 0:
+        freq = Propanol_freq[Temperatures.index(T)].to_numpy()
+        EpsR = Propanol_EpsR[Temperatures.index(T)].to_numpy()
 
-    ax.scatter(freq, EpsR, label=f"{T}°C", marker = 'x',s = 5)
+        ax.plot(freq, EpsR, label=f"{T}°C")
     
 u.set_legend_properties(ax,fontsize=20)
 

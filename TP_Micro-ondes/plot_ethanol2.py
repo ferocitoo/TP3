@@ -263,12 +263,13 @@ ylabel = r"$\epsilon_r^{''}$"
 
 ax,fig = u.create_figure_and_apply_format((8,8),xlabel=xlabel, ylabel=ylabel)
 
-for T in Temperatures:
-    
-    freq = Ethanol_freq[Temperatures.index(T)].to_numpy()
-    EpsI = Ethanol_EpsI[Temperatures.index(T)].to_numpy()
+for i in range(len(Temperatures)):
+    T = Temperatures[i]
+    if i % 2 == 0:
+        freq = Ethanol_freq[i].to_numpy()
+        EpsI = Ethanol_EpsI[i].to_numpy()
 
-    ax.scatter(freq, EpsI, label=f"{T}°C", marker = 'x',s = 5)
+        ax.plot(freq, EpsI, label=f"{T}°C")
     
 u.set_legend_properties(ax,fontsize=20)
 
@@ -276,23 +277,28 @@ plt.tight_layout()
 
 fig.savefig("TP_Micro-ondes/Figures/Ethanol_freq_vs_EpsI.pdf")
 
+
+
+
 xlabel = "Frequency [MHz]"
 ylabel = r"$\epsilon_r^{'}$"
 
 ax,fig = u.create_figure_and_apply_format((8,8),xlabel=xlabel, ylabel=ylabel)
 
-for T in Temperatures:
-    
-    freq = Ethanol_freq[Temperatures.index(T)].to_numpy()
-    EpsR = Ethanol_EpsR[Temperatures.index(T)].to_numpy()
+for i in range(len(Temperatures)):
+    T = Temperatures[i]
+    if i % 2 == 0: 
+        freq = Ethanol_freq[i].to_numpy()
+        EpsR = Ethanol_EpsR[i].to_numpy()
 
-    ax.scatter(freq, EpsR, label=f"{T}°C", marker = 'x',s = 5)
-    
+        ax.plot(freq, EpsR, label=f"{T}°C")
+        
 u.set_legend_properties(ax,fontsize=20)
 
-plt.tight_layout()
 
 fig.savefig("TP_Micro-ondes/Figures/Ethanol_freq_vs_EpsR.pdf")
+
+
 
 #freq vs EpsR and EpsI with fit
 
@@ -334,8 +340,8 @@ for T in Temperatures:
     xlabel = r"$\epsilon_r^{'}$"
     ylabel = r"$\epsilon_r^{''}$"
     ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
-    ax.scatter(EpsR, EpsI, label=r"$\frac{\epsilon_r''}{\epsilon_r'}$", marker='x', s=10)
-    ax.plot(epsR(f_R, eps_inf_R, eps_s_R, tao_R), epsI(f_R, eps_diff_I, tao_I),color = 'black', label=r"Fit $\frac{\epsilon_r''}{\epsilon_r'}$", linestyle='--')
+    ax.scatter(EpsR, EpsI, label=r"Data", marker='x', s=10)
+    ax.plot(epsR(f_R, eps_inf_R, eps_s_R, tao_R), epsI(f_R, eps_diff_I, tao_I),color = 'black', label=r"Fit", linestyle='--')
     
     eps_r_max = eps_diff_I / 2
 
@@ -351,8 +357,8 @@ for T in Temperatures:
 xlabel = "Temperature [°C]"
 ylabel = r"$\tau$ [s]"
 ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
-ax.scatter(Temperatures, taos_R, label=r"$\tau$ with $\epsilon_r'$", marker='x', s=10)
-# ax.scatter(Temperatures, taos_I, label=r"$\tau$ with $\epsilon_r''$", marker='x', s=10)
+ax.scatter(Temperatures, taos_R, marker='^', s=75)
+# ax.scatter(Temperatures, taos_I, label=r"$\tau$ with $\epsilon_r''$", marker='^', s=10)
 u.set_legend_properties(ax, fontsize=20)
 plt.tight_layout()
 fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_tao_vs_T.pdf")
@@ -420,7 +426,7 @@ dslope = dslope*k/1.60217662e-19
 print(f"Ea = {Ea} +/- {dslope} ")
 
 ax.set_xlim(2.9e-3, 3.7e-3)
-ax.set_ylim(6,10)
+ax.set_ylim(7.8,10)
 
 u.set_legend_properties(ax,fontsize=25)
 
@@ -447,7 +453,7 @@ dslope = dslope*k/1.60217662e-19
 print(f"Ea = {Ea} +/- {dslope} ")
 
 ax.set_xlim(3.7e-3, 4.5e-3)
-ax.set_ylim(6,10)
+ax.set_ylim(6.5,8)
 
 u.set_legend_properties(ax,fontsize=25)
 
