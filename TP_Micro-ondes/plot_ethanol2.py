@@ -257,48 +257,6 @@ for T in Temperatures:
     maxfreq = freq[np.argmax(epsI(freq, eps_diff, tao))]
     maxfreqs.append(maxfreq)
 
-#freq vs EpsR and EpsI
-xlabel = "Frequency [MHz]"
-ylabel = r"$\epsilon_r^{''}$"
-
-ax,fig = u.create_figure_and_apply_format((8,8),xlabel=xlabel, ylabel=ylabel)
-
-for i in range(len(Temperatures)):
-    T = Temperatures[i]
-    if i % 2 == 0:
-        freq = Ethanol_freq[i].to_numpy()
-        EpsI = Ethanol_EpsI[i].to_numpy()
-
-        ax.plot(freq, EpsI, label=f"{T}°C")
-    
-u.set_legend_properties(ax,fontsize=20)
-
-plt.tight_layout()
-
-fig.savefig("TP_Micro-ondes/Figures/Ethanol_freq_vs_EpsI.pdf")
-
-
-
-
-xlabel = "Frequency [MHz]"
-ylabel = r"$\epsilon_r^{'}$"
-
-ax,fig = u.create_figure_and_apply_format((8,8),xlabel=xlabel, ylabel=ylabel)
-
-for i in range(len(Temperatures)):
-    T = Temperatures[i]
-    if i % 2 == 0: 
-        freq = Ethanol_freq[i].to_numpy()
-        EpsR = Ethanol_EpsR[i].to_numpy()
-
-        ax.plot(freq, EpsR, label=f"{T}°C")
-        
-u.set_legend_properties(ax,fontsize=20)
-
-
-fig.savefig("TP_Micro-ondes/Figures/Ethanol_freq_vs_EpsR.pdf")
-
-
 
 #freq vs EpsR and EpsI with fit
 
@@ -326,7 +284,7 @@ for T in Temperatures:
     # Plot EpsR and EpsI on the same graph
     xlabel = "Frequency [MHz]"
     ylabel = r"$\epsilon_r$"
-    ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
+    ax, fig = u.create_figure_and_apply_format((10, 6), xlabel=xlabel, ylabel=ylabel)
     ax.scatter(freq, EpsR, label=f"{T}°C $\epsilon_r'$ Data", marker='x', s=10)
     ax.plot(f_R, y_R, label=f"{T}°C $\epsilon_r'$ Fit", color = 'red', linestyle="--")
     ax.scatter(freq, EpsI, label=f"{T}°C $\epsilon_r''$ Data", marker='x', s=10)
@@ -334,12 +292,14 @@ for T in Temperatures:
     u.set_legend_properties(ax, fontsize=20)
     plt.tight_layout()
     fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_freq_vs_Eps_{T}.pdf")
+    
+    
 
     # Plot Cole-Cole
 
     xlabel = r"$\epsilon_r^{'}$"
     ylabel = r"$\epsilon_r^{''}$"
-    ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
+    ax, fig = u.create_figure_and_apply_format((10, 6), xlabel=xlabel, ylabel=ylabel)
     ax.scatter(EpsR, EpsI, label=r"Data", marker='x', s=10)
     ax.plot(epsR(f_R, eps_inf_R, eps_s_R, tao_R), epsI(f_R, eps_diff_I, tao_I),color = 'black', label=r"Fit", linestyle='--')
     
@@ -353,15 +313,6 @@ for T in Temperatures:
     plt.tight_layout()
     fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_Cole_Cole_{T}.pdf")
 
-# Plot tao vs T
-xlabel = "Temperature [°C]"
-ylabel = r"$\tau$ [s]"
-ax, fig = u.create_figure_and_apply_format((8, 6), xlabel=xlabel, ylabel=ylabel)
-ax.scatter(Temperatures, taos_R, marker='^', s=75)
-# ax.scatter(Temperatures, taos_I, label=r"$\tau$ with $\epsilon_r''$", marker='^', s=10)
-u.set_legend_properties(ax, fontsize=20)
-plt.tight_layout()
-fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_tao_vs_T.pdf")
 
 #Energy 
 k = 1.38064852e-23
@@ -382,7 +333,7 @@ dts_pos = dt*1/(np.array(T_pos)**2)
 
 #T
 
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=r"$1/T [K^{-1}]$", ylabel=r"$\ln(\omega) [a.u.]$")
+ax,fig = u.create_figure_and_apply_format((10,6),xlabel=r"$1/T [K^{-1}]$", ylabel=r"$\ln(\omega) [a.u.]$")
 
 ax.errorbar(1/T,np.log(w),xerr=dts,label="Data",marker="^",color = "blue",linestyle="None",markersize = 10, capsize = 5, capthick = 1)
 
@@ -409,7 +360,7 @@ fig.savefig("TP_Micro-ondes/Figures/Ethanol_Energy_of_activation.pdf")
 
 # T_pos
 
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=r"$1/T [K^{-1}]$", ylabel=r"$\ln(\omega) [a.u.]$")
+ax,fig = u.create_figure_and_apply_format((10,6),xlabel=r"$1/T [K^{-1}]$", ylabel=r"$\ln(\omega) [a.u.]$")
 
 ax.errorbar(1/T_pos,np.log(w_pos),xerr=dts_pos,label="Data",marker="^",color = "blue",linestyle="None",markersize = 10, capsize = 5, capthick = 1)
 
@@ -436,7 +387,7 @@ fig.savefig("TP_Micro-ondes/Figures/Ethanol_Energy_of_activation_pos.pdf")
 
 # T_neg
 
-ax,fig = u.create_figure_and_apply_format((8,6),xlabel=r"$1/T [K^{-1}]$", ylabel=r"$\ln(\omega) [a.u.]$")
+ax,fig = u.create_figure_and_apply_format((10,6),xlabel=r"$1/T [K^{-1}]$", ylabel=r"$\ln(\omega) [a.u.]$")
 
 ax.errorbar(1/T_neg,np.log(w_neg),xerr=dts_neg,label="Data",marker="^",color = "blue",linestyle="None",markersize = 10, capsize = 5, capthick = 1)
 
@@ -460,3 +411,96 @@ u.set_legend_properties(ax,fontsize=25)
 plt.tight_layout()
 
 fig.savefig("TP_Micro-ondes/Figures/Ethanol_Energy_of_activation_neg.pdf")
+
+
+
+# Plot tao vs T
+xlabel = "Temperature [°C]"
+ylabel = r"$\tau$ [s]"
+ax, fig = u.create_figure_and_apply_format((10, 6), xlabel=xlabel, ylabel=ylabel)
+ax.scatter(Temperatures, taos_R, marker='^', s=75)
+def fit_func(T, tao_0, E):
+    k = 1.38064852e-23  # Boltzmann constant
+    return tao_0 * np.exp(E / (k * T))
+
+popt, pcov = curve_fit(fit_func, np.array(Temperatures) + 273.15, taos_R, p0=[1, -slope*k])
+tao_0, E = popt
+dtao_0, dE = np.sqrt(np.diag(pcov))
+
+T_fit = np.linspace(min(Temperatures) + 273.15, max(Temperatures) + 273.15, 100)
+tao_fit = fit_func(T_fit, tao_0, E)
+
+ax.plot(np.array(T_fit) - 273.15, tao_fit, label=f"Fit: $\\tau_0$ = {tao_0:.2e} s, E = {E:.2e} J", color='red', linestyle='--')
+
+
+# # Draw a horizontal double arrow centered at -5 degrees with a length of 10 degrees
+# arrow_length = 10
+# arrow_y = 3.3e-4
+# arrow_center = -3
+# arrow_x_start = arrow_center - arrow_length / 2
+# arrow_x_end = arrow_center + arrow_length / 2
+
+# ax.annotate(
+#     '', xy=(arrow_x_end, arrow_y), xytext=(arrow_x_start, arrow_y),
+#     arrowprops=dict(arrowstyle='<->', color='black', lw=1.5)
+# )
+
+# ax.text(
+#     arrow_center, arrow_y * 1.1, f'shift',
+#     horizontalalignment='center', verticalalignment='bottom', fontsize=12
+# )
+
+# ax.scatter(Temperatures, taos_I, label=r"$\tau$ with $\epsilon_r''$", marker='^', s=10)
+u.set_legend_properties(ax, fontsize=20)
+plt.tight_layout()
+fig.savefig(f"TP_Micro-ondes/Figures/Ethanol_tao_vs_T.pdf")
+
+
+
+
+
+
+#freq vs EpsR and EpsI
+xlabel = "Frequency [MHz]"
+ylabel = r"$\epsilon_r^{''}$"
+
+ax,fig = u.create_figure_and_apply_format((12,6),xlabel=xlabel, ylabel=ylabel)
+
+for i in range(len(Temperatures)):
+    T = Temperatures[i]
+    if i % 2 == 0:
+        freq = Ethanol_freq[i].to_numpy()
+        EpsI = Ethanol_EpsI[i].to_numpy()
+
+        ax.plot(freq, EpsI, label=f"{T}°C")
+    
+u.set_legend_properties(ax,fontsize=20)
+
+plt.tight_layout()
+
+ax.set_xlim(0, 3600)
+
+fig.savefig("TP_Micro-ondes/Figures/Ethanol_freq_vs_EpsI.pdf")
+
+
+
+
+xlabel = "Frequency [MHz]"
+ylabel = r"$\epsilon_r^{'}$"
+
+ax,fig = u.create_figure_and_apply_format((12,6),xlabel=xlabel, ylabel=ylabel)
+
+for i in reversed(range(len(Temperatures))):
+    T = Temperatures[i]
+    if i % 2 == 0: 
+        freq = Ethanol_freq[i].to_numpy()
+        EpsR = Ethanol_EpsR[i].to_numpy()
+
+        ax.plot(freq, EpsR, label=f"{T}°C")
+        
+u.set_legend_properties(ax,fontsize=20)
+
+ax.set_xlim(0, 3600)
+
+fig.savefig("TP_Micro-ondes/Figures/Ethanol_freq_vs_EpsR.pdf")
+
