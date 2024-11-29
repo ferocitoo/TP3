@@ -124,7 +124,7 @@ ylabel = r"$V_{out}$ [V]"
 
 ax,fig = u.create_figure_and_apply_format((8,6),xlabel=xlabel, ylabel=ylabel)
 
-for R in R_ext:
+for R in reversed(R_ext):
     i = R_ext.index(R)
     ax.plot(R_ext_e[i], R_ext_s[i], label=rf"$R_{{ext}}$ = {R} $\Omega$")
 
