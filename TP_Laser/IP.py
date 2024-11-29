@@ -327,3 +327,5 @@ u.set_legend_properties(ax,fontsize=20)
 plt.tight_layout()
 
 fig.savefig("TP_Laser/Figures/I_th_T.pdf")
+
+print (rf"T_0 = {1/a} +- {da/a**2} K")
