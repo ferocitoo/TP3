@@ -38,62 +38,74 @@ dT = 0.2
 
 # Importer les données
 
-# 9.5
-T_9_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_9_5.csv", delimiter="\t", decimal=".")
-T_9_5_I = T_9_5.iloc[:,0]/R_int
-T_9_5_P = T_9_5.iloc[:,1]/(alpha*R_ext)
+# 9.4
+T_9_4 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_9_4.csv", delimiter="\t", decimal=".")
+T_9_4_I = T_9_4.iloc[:,0]/R_int
+T_9_4_P = T_9_4.iloc[:,1]/(alpha*R_ext)
 
-T_12_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_12_5.csv", delimiter="\t", decimal=".")
+# 12.5
+T_12_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_12_5.csv", delimiter="\t", decimal=".")
 T_12_5_I = T_12_5.iloc[:,0]/R_int
 T_12_5_P = T_12_5.iloc[:,1]/(alpha*R_ext)
 
-T_15_3 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_15_3.csv", delimiter="\t", decimal=".")
-T_15_3_I = T_15_3.iloc[:,0]/R_int
-T_15_3_P = T_15_3.iloc[:,1]/(alpha*R_ext)
+# 15.2
+T_15_2 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_15_2.csv", delimiter="\t", decimal=".")
+T_15_2_I = T_15_2.iloc[:,0]/R_int
+T_15_2_P = T_15_2.iloc[:,1]/(alpha*R_ext)
 
-T_17_9 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_17_9.csv", delimiter="\t", decimal=".")
-T_17_9_I = T_17_9.iloc[:,0]/R_int
-T_17_9_P = T_17_9.iloc[:,1]/(alpha*R_ext)
+# 17.7
+T_17_7 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_17_7.csv", delimiter="\t", decimal=".")
+T_17_7_I = T_17_7.iloc[:,0]/R_int
+T_17_7_P = T_17_7.iloc[:,1]/(alpha*R_ext)
 
-T_20_3 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_20_3.csv", delimiter="\t", decimal=".")
-T_20_3_I = T_20_3.iloc[:,0]/R_int
-T_20_3_P = T_20_3.iloc[:,1]/(alpha*R_ext)
+# 20.2
+T_20_2 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_20_2.csv", delimiter="\t", decimal=".")
+T_20_2_I = T_20_2.iloc[:,0]/R_int
+T_20_2_P = T_20_2.iloc[:,1]/(alpha*R_ext)
 
-T_22_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_22_5.csv", delimiter="\t", decimal=".")
+# 22.5
+T_22_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_22_5.csv", delimiter="\t", decimal=".")
 T_22_5_I = T_22_5.iloc[:,0]/R_int
 T_22_5_P = T_22_5.iloc[:,1]/(alpha*R_ext)
 
-T_25_2 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_25_2.csv", delimiter="\t", decimal=".")
-T_25_2_I = T_25_2.iloc[:,0]/R_int
-T_25_2_P = T_25_2.iloc[:,1]/(alpha*R_ext)
+# 25.6
+T_25_6 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_25_6.csv", delimiter="\t", decimal=".")
+T_25_6_I = T_25_6.iloc[:,0]/R_int
+T_25_6_P = T_25_6.iloc[:,1]/(alpha*R_ext)
 
-T_27_8 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_27_8.csv", delimiter="\t", decimal=".")
+# 27.8
+T_27_8 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_27_8.csv", delimiter="\t", decimal=".")
 T_27_8_I = T_27_8.iloc[:,0]/R_int
 T_27_8_P = T_27_8.iloc[:,1]/(alpha*R_ext)
 
-T_30_2 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_30_2.csv", delimiter="\t", decimal=".")
-T_30_2_I = T_30_2.iloc[:,0]/R_int
-T_30_2_P = T_30_2.iloc[:,1]/(alpha*R_ext)
+# 30
+T_30 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_30_0.csv", delimiter="\t", decimal=".")
+T_30_I = T_30.iloc[:,0]/R_int
+T_30_P = T_30.iloc[:,1]/(alpha*R_ext)
 
-T_32_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_32_5.csv", delimiter="\t", decimal=".")
+# 32.5
+T_32_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_32_5.csv", delimiter="\t", decimal=".")
 T_32_5_I = T_32_5.iloc[:,0]/R_int
 T_32_5_P = T_32_5.iloc[:,1]/(alpha*R_ext)
 
-T_35_3 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_35_3.csv", delimiter="\t", decimal=".")
-T_35_3_I = T_35_3.iloc[:,0]/R_int
-T_35_3_P = T_35_3.iloc[:,1]/(alpha*R_ext)
+# 35
+T_35 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_35_0.csv", delimiter="\t", decimal=".")
+T_35_I = T_35.iloc[:,0]/R_int
+T_35_P = T_35.iloc[:,1]/(alpha*R_ext)
 
-T_37_6 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_37_6.csv", delimiter="\t", decimal=".")
-T_37_6_I = T_37_6.iloc[:,0]/R_int
-T_37_6_P = T_37_6.iloc[:,1]/(alpha*R_ext)
+# 37.5
+T_37_5 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_37_5.csv", delimiter="\t", decimal=".")
+T_37_5_I = T_37_5.iloc[:,0]/R_int
+T_37_5_P = T_37_5.iloc[:,1]/(alpha*R_ext)
 
-T_40_0 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/New_T/T_40_0.csv", delimiter="\t", decimal=".")
-T_40_0_I = T_40_0.iloc[:,0]/R_int
-T_40_0_P = T_40_0.iloc[:,1]/(alpha*R_ext)
+# 40.1
+T_40_1 = pd.read_csv("/workspaces/TP3/TP_Laser/Datas/T_40_1.csv", delimiter="\t", decimal=".")
+T_40_1_I = T_40_1.iloc[:,0]/R_int
+T_40_1_P = T_40_1.iloc[:,1]/(alpha*R_ext)
 
-Ts = [9.5, 12.5, 15.3, 17.9, 20.3, 22.5, 25.2, 27.8, 30.2, 32.5, 35.3, 37.6, 40.0]
-T_Is = [T_9_5_I, T_12_5_I, T_15_3_I, T_17_9_I, T_20_3_I, T_22_5_I, T_25_2_I, T_27_8_I, T_30_2_I, T_32_5_I, T_35_3_I, T_37_6_I, T_40_0_I]
-T_Ps = [T_9_5_P, T_12_5_P, T_15_3_P, T_17_9_P, T_20_3_P, T_22_5_P, T_25_2_P, T_27_8_P, T_30_2_P, T_32_5_P, T_35_3_P, T_37_6_P, T_40_0_P]
+Ts = [9.4, 12.5, 15.2, 17.7, 20.2, 22.5, 25.6, 27.8, 30, 32.5, 35, 37.5, 40.1]
+T_Is = [T_9_4_I, T_12_5_I, T_15_2_I, T_17_7_I, T_20_2_I, T_22_5_I, T_25_6_I, T_27_8_I, T_30_I, T_32_5_I, T_35_I, T_37_5_I, T_40_1_I]
+T_Ps = [T_9_4_P, T_12_5_P, T_15_2_P, T_17_7_P, T_20_2_P, T_22_5_P, T_25_6_P, T_27_8_P, T_30_P, T_32_5_P, T_35_P, T_37_5_P, T_40_1_P]
 
 T_K = [T + 273.15 for T in Ts]
 
@@ -126,7 +138,7 @@ u.set_legend_properties(ax,fontsize=20)
 
 plt.tight_layout()
 
-fig.savefig("TP_Laser/Figures/IP_T_New.pdf")
+fig.savefig("TP_Laser/Figures/IP_T.pdf")
 
 # Plot chacune avec les fits
 
@@ -139,7 +151,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[70:80], P[70:80])
+popt_2, pcov2 = curve_fit(linear_fit, I[130:150], P[130:150])
 P_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -172,7 +184,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[80:90], P[80:90])
+popt_2, pcov2 = curve_fit(linear_fit, I[150:170], P[150:170])
 P_2_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -190,7 +202,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[70:80], P[70:80])
+popt_2, pcov2 = curve_fit(linear_fit, I[140:150], P[140:150])
 P_2_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -208,7 +220,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[100:110], P[100:110])
+popt_2, pcov2 = curve_fit(linear_fit, I[190:200], P[190:200])
 P_2_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -226,7 +238,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[90:100], P[90:100])
+popt_2, pcov2 = curve_fit(linear_fit, I[170:180], P[170:180])
 P_2_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -244,7 +256,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[120:130], P[120:130])
+popt_2, pcov2 = curve_fit(linear_fit, I[220:230], P[220:230])
 P_2_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -262,7 +274,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[110:120], P[110:120])
+popt_2, pcov2 = curve_fit(linear_fit, I[240:250], P[240:250])
 P_2_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -280,61 +292,7 @@ i = Ts.index(T)
 I = T_Is[i]
 P = T_Ps[i]
 
-popt_2, pcov2 = curve_fit(linear_fit, I[100:110], P[100:110])
-P_2_fit = linear_fit(I, *popt_2)
-
-a, b = popt_2
-da, db = np.sqrt(np.diag(pcov2))
-
-dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
-
-intersection = find_intersection(popt_2)
-I_th.append(intersection[0])
-dI_ths.append(dI_th)
-dI_ths_log.append(np.abs((dI_th/intersection[0])))
-
-T = Ts[8]
-i = Ts.index(T)
-I = T_Is[i]
-P = T_Ps[i]
-
-popt_2, pcov2 = curve_fit(linear_fit, I[80:90], P[80:90])
-P_2_fit = linear_fit(I, *popt_2)
-
-a, b = popt_2
-da, db = np.sqrt(np.diag(pcov2))
-
-dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
-
-intersection = find_intersection(popt_2)
-I_th.append(intersection[0])
-dI_ths.append(dI_th)
-dI_ths_log.append(np.abs((dI_th/intersection[0])))
-
-T = Ts[9]
-i = Ts.index(T)
-I = T_Is[i]
-P = T_Ps[i]
-
-popt_2, pcov2 = curve_fit(linear_fit, I[100:110], P[100:110])
-P_2_fit = linear_fit(I, *popt_2)
-
-a, b = popt_2
-da, db = np.sqrt(np.diag(pcov2))
-
-dI_th = np.abs((b/(a**2)))*da + np.abs((1/-a))*db
-
-intersection = find_intersection(popt_2)
-I_th.append(intersection[0])
-dI_ths.append(dI_th)
-dI_ths_log.append(np.abs((dI_th/intersection[0])))
-                  
-T = Ts[10]
-i = Ts.index(T)
-I = T_Is[i]
-P = T_Ps[i]
-
-popt_2, pcov2 = curve_fit(linear_fit, I[110:120], P[110:120])
+popt_2, pcov2 = curve_fit(linear_fit, I[280:290], P[280:290])
 P_2_fit = linear_fit(I, *popt_2)
 
 a, b = popt_2
@@ -368,6 +326,6 @@ u.set_legend_properties(ax,fontsize=20)
 
 plt.tight_layout()
 
-fig.savefig("TP_Laser/Figures/I_th_T_New.pdf")
+fig.savefig("TP_Laser/Figures/I_th_T.pdf")
 
 print (rf"T_0 = {1/a} +- {da/a**2} K")
