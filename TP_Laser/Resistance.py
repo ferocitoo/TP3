@@ -65,7 +65,7 @@ I_fit = np.linspace(min(I), max(I), 100)
 U_fit = linear(I_fit, a, b)
 ax.plot(I_fit, U_fit, color='red', label=rf"Fit: $U = {a:.2f} I + ({b:.2f})$", linestyle='--')
 
-ax.scatter(I, U, marker='x', label=r"U(I)")
+ax.errorbar(I, U, dI, dU, marker='x', label=r"U(I)", linestyle='')
 
 u.set_legend_properties(ax,fontsize=20)
 

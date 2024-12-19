@@ -97,6 +97,9 @@ T_Ps = [T_9_5_P, T_12_5_P, T_15_3_P, T_17_9_P, T_20_3_P, T_22_5_P, T_25_2_P, T_2
 
 T_K = [T + 273.15 for T in Ts]
 
+dIs = [0.01/R_int - (T_Is[i]/R_int**2)*0.004 for i in range(len(Ts))]
+dPs = [0.01/(alpha*R_ext) - (T_Ps[i]/(alpha*R_ext)**2)*1 for i in range(len(Ts))] 
+
 # Plot
 
 def linear_fit(x, a, b):
