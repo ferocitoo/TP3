@@ -1,0 +1,7 @@
+{
+    "latex-workshop.linting.chktex.convertOutput.column.enabled": false,
+    "latex-workshop.linting.chktex.convertOutput.column.chktexrcTabSize": -1,
+    "latex-workshop.linting.chktex.exec.path": "chktex",
+    "latex-workshop.linting.chktex.exec.args": [],
+    "latex-workshop.linting.chktex.enabled": true
+}
