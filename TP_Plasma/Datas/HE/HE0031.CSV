@@ -1,0 +1,24 @@
+"Rohde&Schwarz HMC8012 -Log-File"
+"Date:"; 2025-03-21
+"Start Time:"; 18:50:30
+"Stop Time:"; 18:50:31
+
+"Measurement Settings:"
+#ADC Rate;Slow
+#AC Filter;------
+#Input Imp.;10M
+
+
+"Logging Settings:"
+#Mode;Unlimited
+#Logging Interval[s];0.000
+#Specified Logging Count;------
+#Specified Logging Time[s];------
+
+"Actual Count:";3             ;
+
+
+"DCV[V];DCI[A];Flag;Timestamp";
+0.000112;-0.0083820;;18:50:30:192
+0.000174;-0.0083817;;18:50:30:793
+0.000188;-0.0083820;;18:50:31:394
