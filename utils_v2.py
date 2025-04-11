@@ -358,7 +358,7 @@ def set_legend_properties(ax,markersize=15,ncol = 1, loc = "best", fontsize=20, 
     
     plt.tight_layout()
  
-def set_axis_and_tick_properties(ax,x_label, y_label, xy_fontsize, tick_fontsize):
+def set_axis_and_tick_properties(ax,x_label, y_label, xy_fontsize=22, tick_fontsize=18):
     ax.set_xlabel(x_label, fontsize=xy_fontsize)
     ax.set_ylabel(y_label, fontsize=xy_fontsize)
     ax.tick_params('both', labelsize = tick_fontsize)
